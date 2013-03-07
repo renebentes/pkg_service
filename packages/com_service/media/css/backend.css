@@ -1,0 +1,12 @@
+/* toolbar */
+.icon-48-services, .icon-48-service {
+	background: url(../images/toolbar/service.png) no-repeat left;
+}
+
+.icon-48-cpanel {
+	background: url(../images/toolbar/cpanel.png) no-repeat left !important;
+}
+
+.icon-48-service-categories {
+	background: url(../images/toolbar/category.png) no-repeat left;
+}

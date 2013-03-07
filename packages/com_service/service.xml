@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.0" method="upgrade">
+	<name>com_service</name>
+	<author>Rene Bentes Pinto</author>
+	<creationDate>05/03/2013</creationDate>
+	<copyright>(C) 2013 Rene Bentes Pinto. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>renebentes@yahoo.com.br</authorEmail>
+	<authorUrl></authorUrl>
+	<version>1.0</version>
+	<description>COM_SERVICE_XML_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+	</update>
+	<files folder="site">
+		<folder>controllers</folder>
+		<folder>helpers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+		<filename>service.php</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>metadata.xml</filename>
+		<filename>router.php</filename>
+	</files>
+	<languages folder="site">
+		<language tag="pt-BR">language/pt-BR/pt-BR.com_service.ini</language>
+	</languages>
+	<media folder="media" destination="com_service">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<filename>index.html</filename>
+	</media>
+	<administration>
+		<menu view="cpanel" img="../media/com_service/images/menu/service.png" link="option=com_service" alt="Service">com_service</menu>
+		<submenu>
+			<menu view="cpanel" img="../media/com_service/images/menu/service_cpanel.png" link="option=com_service" alt="Service/Cpanel">com_service_cpanel</menu>
+			<menu view="services" img="../media/com_service/images/menu/service.png" link="option=com_service&amp;view=services" alt="Service/Services">com_service_services</menu>
+			<menu view="categories" img="../media/com_service/images/menu/service_category.png" link="option=com_categories&amp;extension=com_service" alt="Service/Categories">com_service_categories</menu>
+		</submenu>
+		<files folder="admin">
+			<folder>controllers</folder>
+			<folder>help</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<filename>service.php</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="pt-BR">language/pt-BR/pt-BR.com_service.ini</language>
+			<language tag="pt-BR">language/pt-BR/pt-BR.com_service.sys.ini</language>
+		</languages>
+	</administration>
+</extension>
