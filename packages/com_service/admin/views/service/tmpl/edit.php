@@ -78,23 +78,8 @@ $canDo = ServiceHelper::getActions();
 		</fieldset>
 	</div>
 	<div class="width-40 fltrt">
-		<pre>
-			<?php echo empty($this->form->getFieldset('params')); ?>
-			<?php echo empty($this->form->getFieldset('metadata')); ?>
-			<?php var_dump($this->form->getFieldset('params')); ?>
-		</pre>
 		<?php echo JHtml::_('sliders.start', 'service-sliders-' . $this->item->id, array('useCookie' => 1)); ?>
-		<?php
-		/*if(!empty($this->form->getFieldset('publish')))
-		{
-			echo $this->loadTemplate('publish');
-		}
-		/*
-		if(!empty($this->form->getFieldset('params')))
-			echo $this->loadTemplate('params');
-		if(!empty($this->form->getFieldset('metadata')))
-			echo $this->loadTemplate('metadata');
-		*/?>
+		<?php echo $this->loadTemplate('publish'); ?>
 		<?php echo JHtml::_('sliders.end'); ?>
 	</div>
 	<div>
