@@ -27,16 +27,13 @@ class ServiceModelCategory extends JModelList
 	 */
 	protected $_item = null;
 
+	protected $_articles = null;
+
+	protected $_siblings = null;
+
 	protected $_children = null;
 
 	protected $_parent = null;
-
-	/**
-	 * Model context string.
-	 *
-	 * @var		string
-	 */
-	protected $_context = 'com_service.category';
 
 	/**
 	 * The category that applies.
@@ -69,78 +66,12 @@ class ServiceModelCategory extends JModelList
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'title', 'a.title',
-				'alias', 'a.alias',
-				'catid', 'a.catid', 'category_title',
 				'published', 'a.published',
 				'ordering', 'a.ordering',
 			);
 		}
 
 		parent::__construct($config);
-	}
-
-	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
-	 *
-	 * @return  void
-	 *
-	 * @since   2.5
-	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
-		// Initialise variables.
-		$app	= JFactory::getApplication('site');
-		$id = JRequest::getInt('id');
-		$this->setState('category.id', $id);
-
-		$params	= JComponentHelper::getParams('com_service');
-
-		// List state information
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'uint');
-		$this->setState('list.limit', $limit);
-
-		$limitstart = JRequest::getUInt('limitstart', 0);
-		$this->setState('list.start', $limitstart);
-
-		$orderCol = JRequest::getCmd('filter_order', 'ordering');
-
-		if (!in_array($orderCol, $this->filter_fields))
-		{
-			$orderCol = 'ordering';
-		}
-
-		$this->setState('list.ordering', $orderCol);
-
-		$listOrder = JRequest::getCmd('filter_order_Dir', 'ASC');
-
-		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
-		{
-			$listOrder = 'ASC';
-		}
-
-		$this->setState('list.direction', $listOrder);
-
-		// Get the user object.
-		$user = JFactory::getUser();
-
-		if ((!$user->authorise('core.edit.state', 'category')) &&  (!$user->authorise('core.edit', 'category')))
-		{
-			// Limit to published for people who can't edit or edit.state.
-			$this->setState('filter.published',	1);
-
-			// Filter by start and end dates.
-			$this->setState('filter.publish_date', true);
-		}
-
-		$this->setState('filter.language', $app->getLanguageFilter());
-
-		// Load the parameters.
-		$this->setState('params', $params);
 	}
 
 	/**
@@ -228,6 +159,70 @@ class ServiceModelCategory extends JModelList
 		$query->order($db->escape($this->getState('list.ordering', 'a.ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
 
 		return $query;
+	}
+
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+	 * @since   2.5
+	 */
+	protected function populateState($ordering = null, $direction = null)
+	{
+		// Initialise variables.
+		$app	= JFactory::getApplication();
+		$params	= JComponentHelper::getParams('com_service');
+
+		// List state information
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'uint');
+		$this->setState('list.limit', $limit);
+
+		$limitstart = JRequest::getUInt('limitstart', 0);
+		$this->setState('list.start', $limitstart);
+
+		$orderCol = JRequest::getCmd('filter_order', 'ordering');
+
+		if (!in_array($orderCol, $this->filter_fields))
+		{
+			$orderCol = 'ordering';
+		}
+
+		$this->setState('list.ordering', $orderCol);
+
+		$listOrder = JRequest::getCmd('filter_order_Dir', 'ASC');
+
+		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
+		{
+			$listOrder = 'ASC';
+		}
+
+		$this->setState('list.direction', $listOrder);
+
+		$id = JRequest::getVar('id', 0, '', 'int');
+		$this->setState('category.id', $id);
+
+		// Get the user object.
+		$user = JFactory::getUser();
+
+		if ((!$user->authorise('core.edit.state', 'category')) &&  (!$user->authorise('core.edit', 'category')))
+		{
+			// Limit to published for people who can't edit or edit.state.
+			$this->setState('filter.published',	1);
+
+			// Filter by start and end dates.
+			$this->setState('filter.publish_date', true);
+		}
+
+		$this->setState('filter.language', $app->getLanguageFilter());
+
+		// Load the parameters.
+		$this->setState('params', $params);
 	}
 
 	/**
@@ -340,15 +335,6 @@ class ServiceModelCategory extends JModelList
 		if (!is_object($this->_item))
 		{
 			$this->getCategory();
-		}
-
-		// Order subcategories
-		if (sizeof($this->_children)) {
-			$params = $this->getState()->get('params');
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha') {
-				jimport('joomla.utilities.arrayhelper');
-				JArrayHelper::sortObjects($this->_children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
-			}
 		}
 
 		return $this->_children;
