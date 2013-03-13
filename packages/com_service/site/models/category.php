@@ -339,4 +339,33 @@ class ServiceModelCategory extends JModelList
 
 		return $this->_children;
 	}
+
+	/**
+	 * Method to get a JPagination object for the data set.
+	 *
+	 * @return  JPagination  A JPagination object for the data set.
+	 *
+	 * @since   2.5
+	 */
+	function getPagination()
+	{
+		// Get a storage key.
+		$store = $this->getStoreId('getPagination');
+
+		// Try to load the data from internal storage.
+		if (isset($this->cache[$store]))
+		{
+			return $this->cache[$store];
+		}
+
+		// Create the pagination object.
+		require_once (JPATH_COMPONENT . DS . 'helpers' . DS . 'pagination.php');
+		$limit = (int) $this->getState('list.limit') - (int) $this->getState('list.links');
+		$page = new ServicePagination($this->getTotal(), $this->getStart(), $limit);
+
+		// Add the object to the internal cache.
+		$this->cache[$store] = $page;
+
+		return $this->cache[$store];
+	}
 }
