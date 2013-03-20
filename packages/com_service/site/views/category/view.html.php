@@ -99,8 +99,7 @@ class ServiceViewCategory extends JViewLegacy
 		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
 
-		$maxLevel = $params->get('maxLevel', -1);
-		$this->assignRef('maxLevel',   $maxLevel);
+		$this->maxLevel = $params->get('maxLevel', -1);
 		$this->assignRef('state',      $state);
 		$this->assignRef('items',      $items);
 		$this->assignRef('category',   $category);
@@ -160,7 +159,7 @@ class ServiceViewCategory extends JViewLegacy
 
 		$id = (int) @$menu->query['id'];
 
-		if ($menu && ($menu->query['option'] != 'com_service' || $menu->query['view'] == 'Service' || $id != $this->category->id))
+		if ($menu && ($menu->query['option'] != 'com_service' || $menu->query['view'] == 'service' || $id != $this->category->id))
 		{
 			$path = array(array('title' => $this->category->title, 'link' => ''));
 			$category = $this->category->getParent();

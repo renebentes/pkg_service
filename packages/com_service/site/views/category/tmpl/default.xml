@@ -103,7 +103,7 @@
 				<option value="1">JSHOW</option>
 			</field>
 
-			<field name="show_link_hits" type="list" label="JGLOBAL_HITS" description="COM_SERVICE_FIELD_CONFIG_HITS_DESC">
+			<field name="show_show_hits" type="list" label="JGLOBAL_HITS" description="COM_SERVICE_FIELD_CONFIG_HITS_DESC">
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="0">JHIDE</option>
 				<option value="1">JSHOW</option>

@@ -38,11 +38,11 @@ class ServiceController extends JControllerLegacy
 		// Note we are using s_id to avoid collisions with the router and the return page.
 		// Frontend is a bit messier than the backend.
 		$id    = JRequest::getInt('s_id');
-		$vName = JRequest::getCmd('view', 'service');
+		$vName = JRequest::getCmd('view', 'categories');
 
 		JRequest::setVar('view', $vName);
 
-		if ($user->get('id') ||($_SERVER['REQUEST_METHOD'] == 'POST' && $vName = 'service'))
+		if ($user->get('id') ||($_SERVER['REQUEST_METHOD'] == 'POST' && $vName = 'categories'))
 		{
 			$cachable = false;
 		}

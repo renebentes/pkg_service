@@ -27,7 +27,7 @@ class ServiceModelCategory extends JModelList
 	 */
 	protected $_item = null;
 
-	protected $_articles = null;
+	protected $_records = null;
 
 	protected $_siblings = null;
 
@@ -66,8 +66,21 @@ class ServiceModelCategory extends JModelList
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'title', 'a.title',
+				'alias', 'a.alias',
+				'checked_out', 'a.checked_out',
+				'checked_out_time', 'a.checked_out_time',
+				'catid', 'a.catid', 'category_title',
 				'published', 'a.published',
+				'access', 'a.access', 'access_level',
+				'created', 'a.created',
+				'created_by', 'a.created_by',
+				'modified', 'a.modified',
 				'ordering', 'a.ordering',
+				'language', 'a.language',
+				'hits', 'a.hits',
+				'publish_up', 'a.publish_up',
+				'publish_down', 'a.publish_down',
+				'author', 'a.author'
 			);
 		}
 
@@ -96,6 +109,23 @@ class ServiceModelCategory extends JModelList
 				$item->params = $params;
 				$params->loadString($item->params);
 			}
+
+			// get display date
+			switch ($item->params->get('list_show_date'))
+			{
+				case 'modified':
+					$item->displayDate = $item->modified;
+					break;
+
+				case 'published':
+					$item->displayDate = ($item->publish_up == 0) ? $item->created : $item->publish_up;
+					break;
+
+				default:
+				case 'created':
+					$item->displayDate = $item->created;
+					break;
+			}
 		}
 
 		return $items;
@@ -110,15 +140,28 @@ class ServiceModelCategory extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		$user	= JFactory::getUser();
-		$groups	= implode(',', $user->getAuthorisedViewLevels());
+		// Initialiase variables.
+		$user   = JFactory::getUser();
+		$groups = implode(', ', $user->getAuthorisedViewLevels());
 
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db     = $this->getDbo();
+		$query  = $db->getQuery(true);
 
 		// Select required fields from the categories.
-		$query->select($this->getState('list.select', 'a.*'));
+		$query->select(
+			$this->getState(
+				'list.select',
+				'a.id, a.title, a.alias, a.checked_out, a.checked_out_time, ' .
+				'a.catid, a.created, a.created_by, a.created_by_alias, ' .
+				// use created if modified is 0
+				'CASE WHEN a.modified = 0 THEN a.created ELSE a.modified END as modified, ' .
+				'a.modified_by, uam.name as modified_by_name,' .
+				// use created if publish_up is 0
+				'CASE WHEN a.publish_up = 0 THEN a.created ELSE a.publish_up END as publish_up,' .
+				'a.publish_down, a.access, a.hits'
+			)
+		);
 		$query->from($db->quoteName('#__service') . ' AS a');
 		$query->where('a.access IN (' . $groups . ')');
 
@@ -126,22 +169,31 @@ class ServiceModelCategory extends JModelList
 		if ($categoryId = $this->getState('category.id'))
 		{
 			$query->where('a.catid = ' . (int) $categoryId);
-			$query->select('c.title AS category_title, c.alias AS category_alias, c.access AS category_access');
+			// Join over the categories.
+			$query->select('c.title AS category_title, c.access AS category_access, c.alias AS category_alias');
 			$query->join('LEFT', '#__categories AS c ON c.id = a.catid');
 			$query->where('c.access IN (' . $groups . ')');
 		}
 
-		// Filter by state
-		$state = $this->getState('filter.published');
-		if (is_numeric($state))
+		// Join over the users for the author and modified_by names.
+		$query->select("CASE WHEN a.created_by_alias > ' ' THEN a.created_by_alias ELSE ua.name END AS author");
+		$query->select("ua.email AS author_email");
+
+		$query->join('LEFT', '#__users AS ua ON ua.id = a.created_by');
+		$query->join('LEFT', '#__users AS uam ON uam.id = a.modified_by');
+
+		// Filter by published
+		$published = $this->getState('filter.published');
+
+		if (is_numeric($published))
 		{
-			$query->where('a.published = ' . (int) $state);
+			$query->where('a.published = ' . (int) $published);
 		}
 
 		// Filter by start and end dates.
-		$nullDate = $db->Quote($db->getNullDate());
+		$nullDate = $db->quote($db->getNullDate());
 		$date = JFactory::getDate();
-		$nowDate = $db->Quote($date->format($db->getDateFormat()));
+		$nowDate = $db->quote($date->toSql());
 
 		if ($this->getState('filter.publish_date'))
 		{
@@ -149,10 +201,48 @@ class ServiceModelCategory extends JModelList
 			$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
 		}
 
+		// process the filter for list views with user-entered filters
+		$params = $this->getState('params');
+
+		if ((is_object($params)) && ($params->get('filter_field') != 'hide') && ($filter = $this->getState('list.filter'))) {
+			// clean filter variable
+			$filter = JString::strtolower($filter);
+			switch ($params->get('filter_field'))
+			{
+				case 'author':
+					if(stripos($filter, 'id:') === 0)
+					{
+						$query->where('a.created_by = ' . (int) substr($filter, 3));
+					}
+					else
+					{
+						$filter = $db->Quote('%' . $db->escape($filter, true) . '%');
+						$query->where('(LOWER(a.created_by_alias) LIKE ' . $filter . ' OR LOWER(ua.name) LIKE '. $filter .') ');
+					}
+					break;
+				case 'hits':
+					$hitsFilter = intval($filter);
+					$query->where('a.hits >= '.$hitsFilter.' ');
+					break;
+				case 'title':
+				default: // default to 'title' if parameter is not valid
+					if(stripos($filter, 'id:') === 0)
+					{
+						$query->where('a.id = ' . (int) substr($filter, 3));
+					}
+					else
+					{
+						$filter = $db->Quote('%' . $db->escape($filter, true) . '%');
+						$query->where('(LOWER(a.title) LIKE ' . $filter . ' OR LOWER(a.alias) LIKE '. $filter .') ');
+					}
+					break;
+			}
+		}
+
 		// Filter by language
 		if ($this->getState('filter.language'))
 		{
-			$query->where('a.language in (' . $db->Quote(JFactory::getLanguage()->getTag()) . ',' . $db->Quote('*') . ')');
+			$query->where('a.language in (' . $db->quote(JFactory::getLanguage()->getTag()) . ', ' . $db->quote('*') . ')');
 		}
 
 		// Add the list ordering clause.
@@ -179,37 +269,34 @@ class ServiceModelCategory extends JModelList
 		$app	= JFactory::getApplication();
 		$params	= JComponentHelper::getParams('com_service');
 
-		// List state information
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'uint');
-		$this->setState('list.limit', $limit);
+		// Optional filter text
+		$this->setState('list.filter', JRequest::getString('filter_search'));
 
-		$limitstart = JRequest::getUInt('limitstart', 0);
-		$this->setState('list.start', $limitstart);
-
-		$orderCol = JRequest::getCmd('filter_order', 'ordering');
-
-		if (!in_array($orderCol, $this->filter_fields))
-		{
-			$orderCol = 'ordering';
+		// filter.order
+		$itemid = JRequest::getInt('id', 0) . ':' . JRequest::getInt('Itemid', 0);
+		$orderCol = $app->getUserStateFromRequest('com_service.category.list.' . $itemid . '.filter_order', 'filter_order', '', 'string');
+		if (!in_array($orderCol, $this->filter_fields)) {
+			$orderCol = 'a.ordering';
 		}
-
 		$this->setState('list.ordering', $orderCol);
 
-		$listOrder = JRequest::getCmd('filter_order_Dir', 'ASC');
-
-		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
-		{
+		$listOrder = $app->getUserStateFromRequest('com_service.category.list.' . $itemid . '.filter_order_Dir',
+			'filter_order_Dir', '', 'cmd');
+		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', ''))) {
 			$listOrder = 'ASC';
 		}
-
 		$this->setState('list.direction', $listOrder);
+
+		// List state information
+		$this->setState('list.start', JRequest::getUInt('limitstart', 0));
+
+		$limit = $app->getUserStateFromRequest('com_service.category.list.' . $itemid . '.limit', 'limit', $params->get('display_num'), 'uint');
+		$this->setState('list.limit', $limit);
 
 		$id = JRequest::getVar('id', 0, '', 'int');
 		$this->setState('category.id', $id);
 
-		// Get the user object.
 		$user = JFactory::getUser();
-
 		if ((!$user->authorise('core.edit.state', 'category')) &&  (!$user->authorise('core.edit', 'category')))
 		{
 			// Limit to published for people who can't edit or edit.state.
@@ -234,25 +321,34 @@ class ServiceModelCategory extends JModelList
 	 */
 	public function getCategory()
 	{
-		if (!is_object($this->_item))
+		if(!is_object($this->_item))
 		{
 			$app = JFactory::getApplication();
 			$menu = $app->getMenu();
 			$active = $menu->getActive();
 			$params = new JRegistry;
-
 			if ($active)
 			{
 				$params->loadString($active->params);
 			}
 
 			$options = array();
-			$options['countItems'] = $params->get('show_cat_items', 1) || $params->get('show_empty_categories', 0);
+			$options['countItems'] = $params->get('show_cat_num_items', 1) || $params->get('show_empty_categories', 0);
 			$categories = JCategories::getInstance('Service', $options);
 			$this->_item = $categories->get($this->getState('category.id', 'root'));
 
+			// Compute selected asset permissions.
 			if (is_object($this->_item))
 			{
+				$user	= JFactory::getUser();
+				$userId	= $user->get('id');
+				$asset	= 'com_service.category.' . $this->_item->id;
+
+				// Check general create permission.
+				if ($user->authorise('core.create', $asset)) {
+					$this->_item->getParams()->set('access-create', true);
+				}
+
 				$this->_children = $this->_item->getChildren();
 				$this->_parent = false;
 				if ($this->_item->getParent())
@@ -349,23 +445,12 @@ class ServiceModelCategory extends JModelList
 	 */
 	function getPagination()
 	{
-		// Get a storage key.
-		$store = $this->getStoreId('getPagination');
+		if(empty($this->_pagination)) :
+			require_once (JPATH_COMPONENT . DS . 'helpers/html/pagination.php');
+			$limit = (int) $this->getState('list.limit') - (int) $this->getState('list.links');
+			$this->_pagination = new ServicePagination($this->getTotal(), $this->getStart(), $limit);
+		endif;
 
-		// Try to load the data from internal storage.
-		if (isset($this->cache[$store]))
-		{
-			return $this->cache[$store];
-		}
-
-		// Create the pagination object.
-		require_once (JPATH_COMPONENT . DS . 'helpers' . DS . 'pagination.php');
-		$limit = (int) $this->getState('list.limit') - (int) $this->getState('list.links');
-		$page = new ServicePagination($this->getTotal(), $this->getStart(), $limit);
-
-		// Add the object to the internal cache.
-		$this->cache[$store] = $page;
-
-		return $this->cache[$store];
+		return $this->_pagination;
 	}
 }

@@ -39,20 +39,18 @@ class ServiceModelService extends JModelItem
 	 */
 	protected function populateState()
 	{
-		$app = JFactory::getApplication('site');
+		// Initialiase variables.
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
 
-		// Load state from the request.
-		$pk = JRequest::getInt('id');
-		$this->setState('service.id', $pk);
-
-		$offset = JRequest::getUInt('limitstart', 0);
-		$this->setState('list.offset', $offset);
+		// Load the object state.
+		$id = $app->input->getInt('id');
+		$this->setState('service.id', $id);
 
 		// Load the parameters.
-		$params = $app->getParams();
 		$this->setState('params', $params);
 
-		// Get the user object.
+		// Get the current user object.
 		$user = JFactory::getUser();
 
 		if ((!$user->authorise('core.edit.state', 'com_service')) &&  (!$user->authorise('core.edit', 'com_service')))
@@ -106,8 +104,8 @@ class ServiceModelService extends JModelItem
 				$query->where('a.id = ' . (int) $pk);
 
 				// Filter by start and end dates.
-				$nullDate = $db->Quote($db->getNullDate());
-				$nowDate = $db->Quote(JFactory::getDate()->toSql());
+				$nullDate = $db->quote($db->getNullDate());
+				$nowDate = $db->quote(JFactory::getDate()->toSql());
 
 				// Filter by published state.
 				$published = $this->getState('filter.published');
@@ -144,6 +142,7 @@ class ServiceModelService extends JModelItem
 				// Convert parameter fields to objects.
 				$registry = new JRegistry;
 				$registry->loadString($data->params);
+
 				$data->params = clone $this->getState('params');
 				$data->params->merge($registry);
 
@@ -176,5 +175,26 @@ class ServiceModelService extends JModelItem
 		}
 
 		return $this->_item[$pk];
+	}
+
+	/**
+	 * Method to increment the hit counter for the service
+	 *
+	 * @param   int  $id  Optional ID of the service.
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since   2.5
+	 */
+	public function hit($id = null)
+	{
+        if (empty($id))
+		{
+			$id = $this->getState('service.id');
+		}
+
+		$service = $this->getTable('Service', 'ServiceTable');
+
+		return $service->hit($id);
 	}
 }
