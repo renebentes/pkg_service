@@ -40,14 +40,17 @@ class ServiceModelService extends JModelItem
 	protected function populateState()
 	{
 		// Initialiase variables.
-		$app    = JFactory::getApplication();
-		$params = $app->getParams();
+		$app    = JFactory::getApplication('site');
 
 		// Load the object state.
-		$id = $app->input->getInt('id');
-		$this->setState('service.id', $id);
+		$pk = $app->input->getInt('id');
+		$this->setState('service.id', $pk);
+
+		$offset = JRequest::getUInt('limitstart');
+		$this->setState('list.offset', $offset);
 
 		// Load the parameters.
+		$params = $app->getParams();
 		$this->setState('params', $params);
 
 		// Get the current user object.

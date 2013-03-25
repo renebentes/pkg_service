@@ -93,7 +93,7 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 		<tbody>
 	<?php foreach ($this->items as $item): ?>
 			<tr>
-				<td><?php echo $item->title; ?></td>
+				<td><a href="<?php echo JRoute::_(ServiceHelperRoute::getServiceRoute($item->slug, $item->catid)); ?>"> <?php echo $this->escape($item->title); ?></a></td>
 			<?php if ($this->params->get('list_show_date')) : ?>
 				<td>
 					<?php echo JHtml::_('date', $item->displayDate, $this->escape(

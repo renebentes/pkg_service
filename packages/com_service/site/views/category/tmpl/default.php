@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 ?>
-<section class="service-category<?php echo !empty($this->pageclass_sfx) ? $this->pageclass_sfx : null;?>">
+<section class="service-category<?php echo $this->pageclass_sfx;?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
 		<div class="page-header">
 			<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
