@@ -36,7 +36,7 @@ class ServiceCategories extends JCategories
 		$options['table'] = '#__service';
 		$options['extension'] = 'com_service';
 		$options['statefield'] = 'published';
-		// $options['countItems'] = 1;
+		$options['countItems'] = 1;
 
 		parent::__construct($options);
 	}

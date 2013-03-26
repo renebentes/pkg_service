@@ -8,3 +8,20 @@
 
 // No direct access.
 defined('_JEXEC') or die;
+
+?>
+<section class="service<?php echo $this->pageclass_sfx; ?>">
+	<?php if ($this->params->get('show_page_heading')): ?>
+	<div class="page-header">
+		<h1>
+			<?php echo $this->escape($this->params->get('page_heading')); ?>
+		</h1>
+	</div>
+	<?php endif; ?>
+
+	<h2>
+		<?php echo $this->escape($this->item->title); ?>
+	</h2>
+
+	<?php var_dump($this->item); ?>
+</section>

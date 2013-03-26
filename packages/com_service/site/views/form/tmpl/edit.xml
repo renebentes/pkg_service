@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SERVICE_FORM_VIEW_DEFAULT_TITLE" option="COM_SERVICE_FORM_VIEW_DEFAULT_OPTION">
+		<message>
+			<![CDATA[COM_SERVICE_FORM_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic">
+			<field name="enable_category" type="radio" default="0" label="COM_SERVICE_CREATE_SERVICE_CATEGORY_LABEL" description="COM_SERVICE_CREATE_SERVICE_CATEGORY_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="catid" type="category" extension="com_service" label="JGLOBAL_CHOOSE_CATEGORY_LABEL" description="JGLOBAL_CHOOSE_CATEGORY_DESC" />
+			</fieldset>
+	</fields>
+</metadata>
