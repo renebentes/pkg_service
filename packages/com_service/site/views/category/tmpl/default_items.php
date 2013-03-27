@@ -32,12 +32,9 @@ $n = count($this->items);
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));
 ?>
-<<<<<<< HEAD
-=======
 <?php if (empty($this->items) && $this->params->get('show_no_results', 1)): ?>
 <p><?php echo JText::_('COM_SERVICE_NO_RESULTS'); ?></p>
 <?php else: ?>
->>>>>>> 22002aed5b61029695887f48e374ff3ab7242d8a
 <form action="<?php echo htmlspecialchars(JFactory::getURI()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline">
 	<?php if ($this->params->get('show_pagination_limit') || $this->params->get('filter_field') != 'hide'): ?>
 	<fieldset class="well well-small">
@@ -59,48 +56,8 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 		<input type="hidden" name="limitstart" value="" />
 	</fieldset>
-	<?php endif; ?>	
-	<?php if (empty($this->items)): ?>
-	<p><?php echo JText::_('COM_SERVICE_NO_RESULTS'); ?></p>
-	<?php else: ?>
-		<div class="service-list<?php echo $this->pageclass_sfx; ?>">
-			<?php if ($this->params->get('show_page_heading', 1)): ?>
-			<h1>
-				<?php echo $this->escape($this->params->get('page_heading')); ?>
-			</h1>
-			<?php endif; ?>
+	<?php endif; ?>
 
-<<<<<<< HEAD
-			<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th class="title"><?php echo JText::_('COM_SERVICE_HEADING_TITLE'); ?></th>
-						<th><?php echo JText::_('COM_SERVICE_HEADING_DESCRIPTION'); ?></th>
-					</tr>
-				</thead>
-				<tbody>
-			<?php foreach ($this->items as $item): ?>
-					<tr>
-						<td><?php echo $item->title; ?></td>
-						<td><?php echo $item->description; ?></td>
-					</tr>
-			<?php endforeach ?>
-				</tbody>
-			</table>
-		</div>
-		<pre><?php var_dump($this->items); ?></pre>
-
-		<?php if ($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2 && $this->pagination->get('pages.total') > 1)) : ?>
-		<nav class="pagination pagination-centered">
-			<?php echo $this->pagination->getPagesLinks(); ?>
-		<?php if ($this->params->def('show_pagination_results', 1)) : ?>
-			<p class="counter muted"><?php echo $this->pagination->getPagesCounter(); ?></p>
-		<?php endif; ?>
-		</nav>
-		<?php endif; ?>
-	<?php endif;?>
-</form>
-=======
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
@@ -173,4 +130,3 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 	<pre><?php var_dump($this->params); ?></pre>
 </form>
 <?php endif;
->>>>>>> 22002aed5b61029695887f48e374ff3ab7242d8a

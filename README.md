@@ -1,9 +1,9 @@
 pkg_service
 =============
 
-Extension Package for managing Services Order supported by Joomla! 2.5 and template with Twitter Bootstrap developed as a way of learning.
+O componente Serviços, desenvolvido sob o Joomla! 2.5, é uma extensão simples para gerenciamento de Ordens de Serviço. Trata-se de um meio para aperfeiçoar o conhecimento sobre como desenvolver extensões para Joomla!.
 
-## Authors
+## Author
 
 * Rene Bentes Pinto
 
