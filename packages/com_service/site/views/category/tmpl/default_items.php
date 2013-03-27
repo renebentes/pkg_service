@@ -36,11 +36,11 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 <p><?php echo JText::_('COM_SERVICE_NO_RESULTS'); ?></p>
 <?php else: ?>
 <form action="<?php echo htmlspecialchars(JFactory::getURI()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline">
-	<?php if ($this->params->get('show_pagination_limit') || $this->params->get('filter_field') != 'hide'): ?>
+	<?php if ($this->params->get('show_pagination_limit') || $this->params->get('filter_field') != 'hide') : ?>
 	<fieldset class="well well-small">
 		<?php if($this->params->get('filter_field') != 'hide') : ?>
 			<div class="pull-left">
-				<label class="control-label" for="filter_search"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?><?php echo JText::_('COM_SERVICE_'.strtoupper($this->params->get('filter_field')).'_FILTER_LABEL').'&#160;'; ?></label>
+				<label class="control-label" for="filter_search"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?>&nbsp;<?php echo JText::_('COM_SERVICE_'.strtoupper($this->params->get('filter_field')).'_FILTER_LABEL').'&#160;'; ?></label>
 				<div class="input-append">
 					<input type="text" name="filter_search" id="filter_search" class="input-small" value="<?php echo $this->escape($this->state->get('list.filter')); ?>" title="<?php echo JText::_('COM_SERVICE_'.strtoupper($this->params->get('filter_field')).'_FILTER_DESC'); ?>" />
 					<button type="submit" rel="tooltip" class="btn hasTooltip" data-original-title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>" data-placement="bottom"><i class="icon-ok"></i></button>
@@ -48,10 +48,12 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 				</div>
 			</div>
 		<?php endif; ?>
-		<div class="pull-right">
-			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-			<?php echo $this->pagination->getLimitBox(); ?>
-		</div>
+		<?php if($this->params->get('show_pagination_limit')) : ?>
+			<div class="pull-right">
+				<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
+				<?php echo $this->pagination->getLimitBox(); ?>
+			</div>
+		<?php endif; ?>
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 		<input type="hidden" name="limitstart" value="" />
@@ -127,6 +129,6 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 		<?php endif; ?>
 	</nav>
 	<?php endif; ?>
-	<pre><?php var_dump($this->params); ?></pre>
+	<pre><?php var_dump($params); ?></pre>
 </form>
 <?php endif;

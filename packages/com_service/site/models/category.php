@@ -102,8 +102,22 @@ class ServiceModelCategory extends JModelList
 	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app	= JFactory::getApplication();
-		$params	= JComponentHelper::getParams('com_service');
+		$app = JFactory::getApplication('site');
+		$pk = JRequest::getInt('id');
+
+		$this->setState('category.id', $pk);
+
+		// Load the parameters. Merge Global and Menu Item params into new object
+		$params     = $app->getParams();
+		$menuParams = new JRegistry;
+
+		if ($menu = $app->getMenu()->getActive()) {
+			$menuParams->loadString($menu->params);
+		}
+
+		$mergedParams = clone $menuParams;
+		$mergedParams->merge($params);
+		$this->setState('params', $mergedParams);
 
 		// Optional filter text
 		$this->setState('list.filter', JRequest::getString('filter_search'));
@@ -133,9 +147,6 @@ class ServiceModelCategory extends JModelList
 		}
 		$this->setState('list.direction', $listOrder);
 
-		$id = JRequest::getVar('id', 0, '', 'int');
-		$this->setState('category.id', $id);
-
 		$user = JFactory::getUser();
 		if ((!$user->authorise('core.edit.state', 'category')) &&  (!$user->authorise('core.edit', 'category')))
 		{
@@ -147,9 +158,6 @@ class ServiceModelCategory extends JModelList
 		}
 
 		$this->setState('filter.language', $app->getLanguageFilter());
-
-		// Load the parameters.
-		$this->setState('params', $params);
 	}
 
 	/**

@@ -3,6 +3,10 @@
 	{
 		"selected_items":
 		[
+			[
+				"param",
+				"params"
+			]
 		]
 	},
 	"buffers":
@@ -11,34 +15,31 @@
 			"file": "packages/com_service/site/views/category/tmpl/default_items.php",
 			"settings":
 			{
-				"buffer_size": 4168,
+				"buffer_size": 5868,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "<snippet>\n	<content><![CDATA[<table class=\"table table-bordered table-striped\">\n<?php if (\\$this->params->get('show_headings')) :?>\n	<thead>\n		<tr>\n			<th id=\"tableOrdering\">\n				<?php  echo JHtml::_('grid.sort', 'COM_${1/(.+)/\\U\\1/g}_HEADING_${3:TITLE}', 'a.${1/(.+)/\\L\\1/g}', \\$listDirn, \\$listOrder) ; ?>\n			</th>\n		<?php if ($date = $this->params->get('list_show_date')) : ?>\n			<th id=\"tableOrdering2\">\n			<?php if ($date == \"created\") : ?>\n				<?php echo JHtml::_('grid.sort', 'COM_${1/(.+)/\\U\\1/g}_HEADING_' . \\$date . ' _DATE', 'a.created', \\$listDirn, \\$listOrder); ?>\n			<?php elseif (\\$date == \"modified\") : ?>\n				<?php echo JHtml::_('grid.sort', 'COM_${1/(.+)/\\U\\1/g}_HEADING_' . \\$date . ' _DATE', 'a.modified', \\$listDirn, \\$listOrder); ?>\n			<?php elseif (\\$date == \"published\") : ?>\n				<?php echo JHtml::_('grid.sort', 'COM_${1/(.+)/\\U\\1/g}_HEADING_' . \\$date . '_DATE', 'a.publish_up', \\$listDirn, \\$listOrder); ?>\n			<?php endif; ?>\n			</th>\n		<?php endif; ?>\n\n		<?php if (\\$this->params->get('list_show_author', 1)) : ?>\n			<th id=\"tableOrdering3\">\n				<?php echo JHtml::_('grid.sort', 'JAUTHOR', 'author', \\$listDirn, \\$listOrder); ?>\n			</th>\n		<?php endif; ?>\n\n		<?php if (\\$this->params->get('list_show_hits', 1)) : ?>\n			<th id=\"tableOrdering4\">\n				<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'a.hits', \\$listDirn, \\$listOrder); ?>\n			</th>\n		<?php endif; ?>\n		</tr>\n	</thead>\n<php>endif; </php>\n	<tbody>\n	<?php foreach (\\$this->items as \\$item): ?>\n		<tr>\n			<td><?php echo \\$item->${3/(.+)/\\L\\1/g}; ?></td>\n			<td><?php echo \\$this->escape(strip_tags(\\$item->description)); ?></td>\n		</tr>\n	<?php endforeach ?>\n	</tbody>\n	</table>\n</div>\n]]>\n	</content>\n	<tabTrigger>jsitelayoutlist</tabTrigger>\n</snippet>\n",
-			"file": "/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/joomla-bundle/Joomla/jsitelayoutlist.sublime-snippet",
-			"file_size": 1754,
-			"file_write_time": 130077858056012025,
-			"settings":
-			{
-				"buffer_size": 1741,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/joomla-bundle/Joomla/jsitelayoutpagination.sublime-snippet",
-			"settings":
-			{
-				"buffer_size": 528,
-				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "packages/com_service/site/views/category/tmpl/default.php",
 			"settings":
 			{
-				"buffer_size": 2701,
+				"buffer_size": 1780,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "packages/com_service/site/views/category/tmpl/default.xml",
+			"settings":
+			{
+				"buffer_size": 6278,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "packages/com_service/site/models/category.php",
+			"settings":
+			{
+				"buffer_size": 12030,
 				"line_ending": "Windows"
 			}
 		}
@@ -99,11 +100,18 @@
 	},
 	"file_history":
 	[
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/admin/sql/updates/mysql/1.1.sql",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/service.xml",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/admin/sql/install.mysql.utf8.sql",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/admin/language/pt-BR/pt-BR.com_service.ini",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/site/language/pt-BR/pt-BR.com_service.ini",
+		"/D/MakeSoft/Projetos/pkg_service/README.md",
+		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/joomla-bundle/Joomla/jsitelayoutpagination.sublime-snippet",
+		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/joomla-bundle/Joomla/jsitelayoutlist.sublime-snippet",
 		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/Package Control/example-repositories.json",
 		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/Package Control/example-packages.json",
 		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/SideBarEnhancements/messages/11.13.2012.1305.0.txt",
 		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
-		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/admin/language/pt-BR/pt-BR.com_service.ini",
 		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/User/Package Control.sublime-settings",
 		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/Alignment/Default (Windows).sublime-keymap",
 		"/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/User/Base File.sublime-settings",
@@ -144,7 +152,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -152,15 +160,15 @@
 					"file": "packages/com_service/site/views/category/tmpl/default_items.php",
 					"settings":
 					{
-						"buffer_size": 4168,
+						"buffer_size": 5868,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3526,
-								3526
+								1344,
+								1344
 							]
 						],
 						"settings":
@@ -169,30 +177,30 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 348.0,
+						"translation.y": 363.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/joomla-bundle/Joomla/jsitelayoutlist.sublime-snippet",
+					"file": "packages/com_service/site/views/category/tmpl/default.php",
 					"settings":
 					{
-						"buffer_size": 1741,
+						"buffer_size": 1780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1677,
-								1677
+								1779,
+								1780
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/XML/XML.tmLanguage",
+							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -203,44 +211,45 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Users/Rene/AppData/Roaming/Sublime Text 2/Packages/joomla-bundle/Joomla/jsitelayoutpagination.sublime-snippet",
+					"file": "packages/com_service/site/views/category/tmpl/default.xml",
 					"settings":
 					{
-						"buffer_size": 528,
+						"buffer_size": 6278,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3715,
+								3715
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/XML/XML.tmLanguage"
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 675.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "packages/com_service/site/views/category/tmpl/default.php",
+					"file": "packages/com_service/site/models/category.php",
 					"settings":
 					{
-						"buffer_size": 2701,
+						"buffer_size": 12030,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2701,
-								2701
+								2330,
+								2330
 							]
 						],
 						"settings":
@@ -249,7 +258,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 360.0,
+						"translation.y": 3105.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
