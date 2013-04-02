@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset name="details" addfieldpath="/administrator/components/com_service/models/fields">
-		<field name="id" type="text" default="0" readonly="true" class="readonly" label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" />
+		<field name="id" type="text" default="0" readonly="true" class="readonly" label="COM_SERVICE_FIELD_ID_LABEL" description="COM_SERVICE_FIELD_ID_DESC" />
 		<field name="title" type="text" class="inputbox" size="40" required="true" label="COM_SERVICE_FIELD_TITLE_LABEL" description="COM_SERVICE_FIELD_TITLE_DESC" />
 		<field name="alias" type="text" class="inputbox" size="40" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" />
 		<field name="catid" type="categoryedit" extension="com_service" class="inputbox" required="true" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" addfieldpath="/administrator/components/com_categories/models/fields">
@@ -19,7 +19,7 @@
 		<field name="language" type="contentlanguage" class="inputbox" label="JFIELD_LANGUAGE_LABEL" description="JFIELD_LANGUAGE_DESC">
 			<option value="*">JALL</option>
 		</field>
-		<field name="description" type="editor" class="inputbox" filter="JComponentHelper::filterText" buttons="true" hide="readmore,pagebreak" label="JGLOBAL_DESCRIPTION" description="COM_SERVICE_FIELD_DESCRIPTION_DESC" />
+		<field name="description" type="editor" class="inputbox" filter="JComponentHelper::filterText" buttons="true" hide="readmore,pagebreak" label="COM_SERVICE_FIELD_DESCRIPTION_LABEL" description="COM_SERVICE_FIELD_DESCRIPTION_DESC" />
 		<field name="dispatch" type="radio" filter="integer" default="0" label="COM_SERVICE_FIELD_DISPATCH_LABEL" description="COM_SERVICE_FIELD_DISPATCH_DESC">
 			<option value="0">COM_SERVICE_FIELD_DISPATCH_OPTION_ANALYZE</option>
 			<option value="1">COM_SERVICE_FIELD_DISPATCH_OPTION_WAIT</option>

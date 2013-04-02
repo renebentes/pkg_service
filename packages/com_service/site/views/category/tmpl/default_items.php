@@ -28,7 +28,6 @@ $canEdit = $user->authorise('core.edit', 'com_service');
 $canCreate = $user->authorise('core.create', 'com_service');
 $canEditState = $user->authorise('core.edit.state', 'com_service');
 
-$n = count($this->items);
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));
 ?>
@@ -67,7 +66,7 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 				<?php  echo JHtml::_('grid.sort', 'COM_SERVICE_HEADING_TITLE', 'a.title', $listDirn, $listOrder) ; ?>
 			</th>
 
-			<?php if ($date = $this->params->get('list_show_date')) : ?>
+			<?php if ($date = strtoupper($this->params->get('list_show_date'))) : ?>
 			<th id="tableOrdering2">
 				<?php if ($date == "created") : ?>
 					<?php echo JHtml::_('grid.sort', 'COM_SERVICE_HEADING_'.$date.'_DATE', 'a.created', $listDirn, $listOrder); ?>

@@ -110,16 +110,16 @@ class ServiceModelService extends JModelItem
 				$nullDate = $db->quote($db->getNullDate());
 				$nowDate = $db->quote(JFactory::getDate()->toSql());
 
+				$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
+				$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+
 				// Filter by published state.
 				$published = $this->getState('filter.published');
 				$archived = $this->getState('filter.archived');
 
 				if (is_numeric($published))
 				{
-					$query->where('(a.published = ' . (int) $published . ' OR a.published =' . (int) $archived . ')');
-					$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
-					$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
-					$query->where('(c.published = ' . (int) $published . ' OR c.published =' . (int) $archived . ')');
+					$query->where('(a.published = ' . (int) $published . ' OR a.published = ' . (int) $archived . ')');
 				}
 
 				$db->setQuery($query);
@@ -154,6 +154,27 @@ class ServiceModelService extends JModelItem
 				$data->metadata = $registry;
 
 				// Compute access permissions.
+				$user = JFactory::getUser();
+
+				// Technically guest could edit an service, but lets not check that to improve performance a little.
+				if (!$user->get('guest')) {
+					$userId	= $user->get('id');
+					$asset	= 'com_service.service.'.$data->id;
+
+					// Check general edit permission first.
+					if ($user->authorise('core.edit', $asset)) {
+						$data->params->set('access-edit', true);
+					}
+					// Now check if edit.own is available.
+					elseif (!empty($userId) && $user->authorise('core.edit.own', $asset)) {
+						// Check for a valid user and that they are the owner.
+						if ($userId == $data->created_by) {
+							$data->params->set('access-edit', true);
+						}
+					}
+				}
+
+				// Compute view access permissions.
 				if ($access = $this->getState('filter.access'))
 				{
 					// If the access filter has been set, we already know this user can view.
@@ -165,15 +186,30 @@ class ServiceModelService extends JModelItem
 					$user = JFactory::getUser();
 					$groups = $user->getAuthorisedViewLevels();
 
-					$data->params->set('access-view', in_array($data->access, $groups) && in_array($data->category_access, $groups));
+					if ($data->catid == 0 || $data->category_access === null)
+					{
+						$data->params->set('access-view', in_array($data->access, $groups));
+					}
+					else
+					{
+						$data->params->set('access-view', in_array($data->access, $groups) && in_array($data->category_access, $groups));
+					}
 				}
 
 				$this->_item[$pk] = $data;
 			}
 			catch (JException $e)
 			{
-				$this->setError($e);
-				$this->_item[$pk] = false;
+				if ($e->getCode() == 404)
+				{
+					// Need to go thru the error handler to allow Redirect to work.
+					JError::raiseError(404, $e->getMessage());
+				}
+				else
+				{
+					$this->setError($e);
+					$this->_item[$pk] = false;
+				}
 			}
 		}
 

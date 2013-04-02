@@ -19,11 +19,11 @@ defined('_JEXEC') or die;
  */
 class ServiceViewService extends JViewLegacy
 {
-	protected $state;
-
 	protected $item;
-
+	protected $params;
 	protected $print;
+	protected $state;
+	protected $user;
 
 	/**
 	 * Method to display the view.
@@ -39,34 +39,35 @@ class ServiceViewService extends JViewLegacy
 		// Initialise variables.
 		$app   = JFactory::getApplication();
 		$user  = JFactory::getUser();
+		$userId = $user->get('id');
 		$dispatcher = JDispatcher::getInstance();
 
-		// Get view related request variables.
-		$print = JRequest::getBool('print');
+		$this->item		= $this->get('Item');
+		$this->print	= JRequest::getBool('print');
+		$this->state	= $this->get('State');
+		$this->user		= $user;
 
-		// Get model data.
-		$state = $this->get('State');
-		$item  = $this->get('Item');
-
-		if ($item)
+		/*if ($item)
 		{
 			// Get Category Model data
 			$categoryModel = JModelLegacy::getInstance('Category', 'ServiceModel', array('ignore_request' => true));
 			$categoryModel->setState('category.id', $item->catid);
-			$categoryModel->setState('list.ordering', 'a.name');
+			$categoryModel->setState('list.ordering', 'a.title');
 			$categoryModel->setState('list.direction', 'asc');
 
 			$items = $categoryModel->getItems();
-		}
+		}*/
 
 		// Check for errors.
 		// @TODO Maybe this could go into JComponentHelper::raiseErrors($this->get('Errors'))
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseWarning(500, implode("\n", $errors));
-
 			return false;
 		}
+
+		// Create a shortcut for $item.
+		$item = &$this->item;
 
 		// Add router helpers.
 		$item->slug = $item->alias ? ($item->id . ':' . $item->alias) : $item->id;
@@ -79,16 +80,14 @@ class ServiceViewService extends JViewLegacy
 		if (!is_writable($cacheDir))
 		{
 			JError::raiseNotice('0', JText::_('COM_SERVICE_CACHE_DIRECTORY_UNWRITABLE'));
-
 			return;
 		}
 
 		// Merge service params. If this is single-service view, menu params override service params
 		// Otherwise, service params override menu item params
-		$params = $state->get('params');
-		$service_params = clone $item->params;
+		$this->params = $this->state->get('params');
 		$active = $app->getMenu()->getActive();
-		$temp = clone ($params);
+		$temp = clone ($this->params);
 
 		// Check to see which parameters should take priority
 		if ($active)
@@ -100,8 +99,7 @@ class ServiceViewService extends JViewLegacy
 			{
 				// $item->params are the service params, $temp are the menu item params
 				// Merge so that the menu item params take priority
-				$service_params->merge($temp);
-				$item->params = $service_params;
+				$item->params->merge($temp);
 
 				// Load layout from active query (in case it is an alternative menu item)
 				if (isset($active->query['layout']))
@@ -113,7 +111,7 @@ class ServiceViewService extends JViewLegacy
 			{
 				// Current view is not a single service, so the service params take priority here
 				// Merge the menu item params with the service params so that the service params take priority
-				$temp->merge($service_params);
+				$temp->merge($item->params);
 				$item->params = $temp;
 
 				// Check for alternative layouts (since we are not in a single-service menu item)
@@ -126,7 +124,7 @@ class ServiceViewService extends JViewLegacy
 		else
 		{
 			// Merge so that service params take priority
-			$temp->merge($service_params);
+			$temp->merge($item->params);
 			$item->params = $temp;
 
 			// Check for alternative layouts (since we are not in a single-service menu item)
@@ -136,39 +134,23 @@ class ServiceViewService extends JViewLegacy
 			}
 		}
 
-		$offset = $state->get('list.offset');
+		$offset = $this->state->get('list.offset');
 
-		// Check the access to the service
-		$levels = $user->getAuthorisedViewLevels();
-
-		if (!in_array($item->access, $levels) or ((in_array($item->access, $levels) and (!in_array($item->category_access, $levels)))))
+		// Check the view access to the article (the model has already computed the values).
+		if ($item->params->get('access-view') != true && $user->get('guest'))
 		{
 			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
-
 			return;
 		}
 
-		// Get the current menu item
-		$menus  = $app->getMenu();
-		$menu   = $menus->getActive();
-		$params = $app->getParams();
-
-		// Get the service
-		$service = $item;
-
-		$temp = new JRegistry;
-		$temp->loadString($item->params);
-		$params->merge($temp);
+		// Increment the hit counter of the service.
+		if ($offset == 0) {
+			$model = $this->getModel();
+			$model->hit();
+		}
 
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
-
-		$this->assignRef('params', $params);
-		$this->assignRef('service', $service);
-		$this->assignRef('state', $state);
-		$this->assignRef('item', $item);
-		$this->assignRef('user', $user);
-		$this->print = $print;
+		$this->pageclass_sfx = htmlspecialchars($this->item->params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
 
@@ -209,15 +191,15 @@ class ServiceViewService extends JViewLegacy
 		if ($menu && ($menu->query['option'] != 'com_service' || $menu->query['view'] != 'service' || $id != $this->item->id))
 		{
 			// If this is not a single service menu item, set the page title to the service title
-			if ($this->item->name)
+			if ($this->item->title)
 			{
-				$title = $this->item->name;
+				$title = $this->item->title;
 			}
 
-			$path = array(array('title' => $this->item->name, 'link' => ''));
+			$path = array(array('title' => $this->item->title, 'link' => ''));
 			$category = JCategories::getInstance('Service')->get($this->item->catid);
 
-			while (($menu->query['option'] != 'com_service' || $menu->query['view'] == 'service' || $id != $category->id) && $category->id > 1)
+			while ($category && ($menu->query['option'] != 'com_service' || $menu->query['view'] == 'service' || $id != $category->id) && $category->id > 1)
 			{
 				$path[] = array('title' => $category->title, 'link' => ServiceHelperRoute::getCategoryRoute($category->id));
 				$category = $category->getParent();
@@ -246,7 +228,7 @@ class ServiceViewService extends JViewLegacy
 
 		if (empty($title))
 		{
-			$title = $this->item->name;
+			$title = $this->item->title;
 		}
 		$this->document->setTitle($title);
 
@@ -273,11 +255,6 @@ class ServiceViewService extends JViewLegacy
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 
-		if ($app->getCfg('MetaTitle') == '1')
-		{
-			$this->document->setMetaData('title', $this->item->name);
-		}
-
 		if ($app->getCfg('MetaAuthor') == '1')
 		{
 			$this->document->setMetaData('author', $this->item->author);
@@ -291,6 +268,11 @@ class ServiceViewService extends JViewLegacy
 			{
 				$this->document->setMetadata($k, $v);
 			}
+		}
+
+		if ($this->print)
+		{
+			$this->document->setMetaData('robots', 'noindex, nofollow');
 		}
 	}
 }

@@ -23,7 +23,7 @@ $userId    = $user->get('id');
 		<thead>
 			<tr>
 				<th width="1%" class="nowrap">
-					<?php echo JText::_('JGRID_HEADING_ID'); ?>
+					<?php echo JText::_('COM_SERVICE_HEADING_ID'); ?>
 				</th>
 				<th class="left">
 					<?php echo JText::_('COM_SERVICE_HEADING_TITLE'); ?>
