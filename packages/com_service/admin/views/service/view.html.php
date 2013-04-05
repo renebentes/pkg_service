@@ -49,7 +49,6 @@ class ServiceViewService extends JView
 			return false;
 		}
 
-		// TODO: verificar possibilidade de trocar de template neste momento.
 		$this->addToolbar();
 
 		parent::display($tpl);
@@ -101,6 +100,7 @@ class ServiceViewService extends JView
 		else
 		{
 			JToolBarHelper::cancel('service.cancel', 'JTOOLBAR_CLOSE');
+			JToolBarHelper::preview('index.php?option=com_service&id=' . $this->item->id);
 		}
 
 		JToolBarHelper::divider();

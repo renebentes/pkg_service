@@ -81,7 +81,7 @@ class ServiceViewServices extends JView
 			JToolBarHelper::editList('service.edit');
 		}
 
-		JToolBarHelper::preview('service.preview');
+		JToolBarHelper::custom('service.preview', 'preview', 'preview', 'Preview', true);
 
 		if ($canDo->get('core.edit.state'))
 		{
