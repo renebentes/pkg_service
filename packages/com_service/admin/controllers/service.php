@@ -25,13 +25,4 @@ class ServiceControllerService extends JControllerForm
 	 * @since  2.5
 	 */
 	protected $text_prefix = 'COM_SERVICE_SERVICE';
-
-	function preview()
-	{
-		JRequest::setVar('view', 'service');
-		JRequest::setVar('layout', 'preview');
-		JRequest::setVar('tmpl', 'component');
-
-		parent::display();
-	}
 }

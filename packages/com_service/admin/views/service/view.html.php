@@ -75,6 +75,8 @@ class ServiceViewService extends JView
 
 		JToolBarHelper::title($isNew ? JText::_('COM_SERVICE_SERVICE_ADD') : JText::_('COM_SERVICE_SERVICE_EDIT'), 'service.png');
 
+		JToolBarHelper::preview('index.php?option=com_service&view=service&layout=preview&tmpl=component&id=' . $this->item->id, false, 'Visualização');
+
 		// If not checked out, can save the item.
 		if (!$checkedOut && ($canDo->get('core.edit') || count($user->getAuthorisedCategories('com_service', 'core.create')) > 0))
 		{
@@ -100,7 +102,6 @@ class ServiceViewService extends JView
 		else
 		{
 			JToolBarHelper::cancel('service.cancel', 'JTOOLBAR_CLOSE');
-			JToolBarHelper::preview('index.php?option=com_service&id=' . $this->item->id);
 		}
 
 		JToolBarHelper::divider();
