@@ -49,6 +49,14 @@ $params = $this->state->get('params');
 				<?php echo $this->form->getLabel('catid'); ?>
 				<?php echo $this->form->getInput('catid'); ?>
 			</div>
+			<div class="formelm">
+				<?php echo $this->form->getLabel('requestor'); ?>
+				<?php echo $this->form->getInput('requestor'); ?>
+			</div>
+			<div class="formelm">
+				<?php echo $this->form->getLabel('place'); ?>
+				<?php echo $this->form->getInput('place'); ?>
+			</div>
 
 			<?php if ($this->user->authorise('core.edit.state', 'com_service.service')): ?>
 			<div class="formelm">

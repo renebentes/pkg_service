@@ -12,34 +12,66 @@
 	"buffers":
 	[
 		{
-			"file": "packages/com_service/site/views/category/tmpl/default_items.php",
+			"file": "packages/com_service/site/views/service/view.html.php",
 			"settings":
 			{
-				"buffer_size": 5868,
+				"buffer_size": 7697,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "packages/com_service/site/views/category/tmpl/default.php",
+			"file": "packages/com_service/site/views/form/view.html.php",
 			"settings":
 			{
-				"buffer_size": 1780,
+				"buffer_size": 3653,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "packages/com_service/site/views/category/tmpl/default.xml",
+			"file": "packages/com_service/site/models/forms/service.xml",
 			"settings":
 			{
-				"buffer_size": 6278,
+				"buffer_size": 3191,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "packages/com_service/site/models/category.php",
+			"file": "packages/com_service/admin/models/forms/service.xml",
 			"settings":
 			{
-				"buffer_size": 12030,
+				"buffer_size": 4578,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "packages/com_service/site/views/form/tmpl/edit.php",
+			"settings":
+			{
+				"buffer_size": 3014,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "packages/com_service/site/controllers/service.php",
+			"settings":
+			{
+				"buffer_size": 6857,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "packages/com_service/site/models/form.php",
+			"settings":
+			{
+				"buffer_size": 3439,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "packages/com_service/site/models/service.php",
+			"settings":
+			{
+				"buffer_size": 6398,
 				"line_ending": "Windows"
 			}
 		}
@@ -47,9 +79,17 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 81.0,
+		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"jsite",
+				"Snippet: jsiteform"
+			],
+			[
+				"jsiteform",
+				"Snippet: jsiteform"
+			],
 			[
 				"instal",
 				"Package Control: Install Package"
@@ -100,6 +140,11 @@
 	},
 	"file_history":
 	[
+		"/D/MakeSoft/Projetos/joomla-bundle/Joomla/jsiteform.sublime-snippet",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/site/views/category/tmpl/default_items.php",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/site/views/category/tmpl/default.php",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/site/views/category/tmpl/default.xml",
+		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/site/models/category.php",
 		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/admin/sql/updates/mysql/1.1.sql",
 		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/service.xml",
 		"/D/MakeSoft/Projetos/pkg_service/packages/com_service/admin/sql/install.mysql.utf8.sql",
@@ -135,6 +180,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"PAYMENTS"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -142,6 +188,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"SERVICE"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -152,23 +199,23 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "packages/com_service/site/views/category/tmpl/default_items.php",
+					"file": "packages/com_service/site/views/service/view.html.php",
 					"settings":
 					{
-						"buffer_size": 5868,
+						"buffer_size": 7697,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1344,
-								1344
+								4123,
+								4123
 							]
 						],
 						"settings":
@@ -177,30 +224,83 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 363.0,
+						"translation.y": 2475.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "packages/com_service/site/views/category/tmpl/default.php",
+					"file": "packages/com_service/site/views/form/view.html.php",
 					"settings":
 					{
-						"buffer_size": 1780,
+						"buffer_size": 3653,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1779,
-								1780
+								1481,
+								1481
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 990.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "packages/com_service/site/models/forms/service.xml",
+					"settings":
+					{
+						"buffer_size": 3191,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3191,
+								3191
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "packages/com_service/admin/models/forms/service.xml",
+					"settings":
+					{
+						"buffer_size": 4578,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1449,
+								1291
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -210,46 +310,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "packages/com_service/site/views/category/tmpl/default.xml",
+					"buffer": 4,
+					"file": "packages/com_service/site/views/form/tmpl/edit.php",
 					"settings":
 					{
-						"buffer_size": 6278,
+						"buffer_size": 3014,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3715,
-								3715
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/XML/XML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 675.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "packages/com_service/site/models/category.php",
-					"settings":
-					{
-						"buffer_size": 12030,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2330,
-								2330
+								1982,
+								1982
 							]
 						],
 						"settings":
@@ -258,7 +331,88 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3105.0,
+						"translation.y": 450.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "packages/com_service/site/controllers/service.php",
+					"settings":
+					{
+						"buffer_size": 6857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3108,
+								3108
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1620.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "packages/com_service/site/models/form.php",
+					"settings":
+					{
+						"buffer_size": 3439,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2125,
+								2125
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 977.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "packages/com_service/site/models/service.php",
+					"settings":
+					{
+						"buffer_size": 6398,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1926,
+								1926
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1035.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -299,7 +453,7 @@
 	"menu_visible": true,
 	"replace":
 	{
-		"height": 0.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

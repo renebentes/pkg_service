@@ -136,7 +136,7 @@ class ServiceViewService extends JViewLegacy
 
 		$offset = $this->state->get('list.offset');
 
-		// Check the view access to the article (the model has already computed the values).
+		// Check the view access to the service (the model has already computed the values).
 		if ($item->params->get('access-view') != true && $user->get('guest'))
 		{
 			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));

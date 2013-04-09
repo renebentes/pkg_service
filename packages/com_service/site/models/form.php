@@ -37,26 +37,98 @@ class ServiceModelForm extends ServiceModelService
 		$pk = JRequest::getInt('s_id');
 		$this->setState('service.id', $pk);
 
-		// Add compatibility variable for default naming conventions.
-		$this->setState('form.id', $pk);
-
 		$categoryId = JRequest::getInt('catid');
 		$this->setState('service.catid', $categoryId);
 
 		$return = JRequest::getVar('return', null, 'default', 'base64');
 
-		if (!JUri::isInternal(base64_decode($return)))
+		if (!JUri::isInternal(urldecode(base64_decode($return))))
 		{
 			$return = null;
 		}
 
-		$this->setState('return_page', base64_decode($return));
+		$this->setState('return_page', urldecode(base64_decode($return)));
 
 		// Load the parameters.
 		$params = $app->getParams();
 		$this->setState('params', $params);
 
 		$this->setState('layout', JRequest::getCmd('layout'));
+	}
+
+	/**
+	 * Method to get article data.
+	 *
+	 * @param	integer	The id of the article.
+	 *
+	 * @return	mixed	Content item data object on success, false on failure.
+	 */
+	public function getItem($itemId = null)
+	{
+		// Initialise variables.
+		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('service.id');
+
+		// Get a row instance.
+		$table = $this->getTable();
+
+		// Attempt to load the row.
+		$return = $table->load($itemId);
+
+		// Check for a table object error.
+		if ($return === false && $table->getError())
+		{
+			$this->setError($table->getError());
+			return false;
+		}
+
+		$properties = $table->getProperties(1);
+		$value = JArrayHelper::toObject($properties, 'JObject');
+
+		// Convert attrib field to Registry.
+		$value->params = new JRegistry;
+		$value->params->loadString($value->params);
+
+		// Compute selected asset permissions.
+		$user	= JFactory::getUser();
+		$userId	= $user->get('id');
+		$asset	= 'com_service.service.' . $value->id;
+
+		// Check general edit permission first.
+		if ($user->authorise('core.edit', $asset)) {
+			$value->params->set('access-edit', true);
+		}
+		// Now check if edit.own is available.
+		elseif (!empty($userId) && $user->authorise('core.edit.own', $asset))
+		{
+			// Check for a valid user and that they are the owner.
+			if ($userId == $value->created_by)
+			{
+				$value->params->set('access-edit', true);
+			}
+		}
+
+		// Check edit state permission.
+		if ($itemId)
+		{
+			// Existing item
+			$value->params->set('access-change', $user->authorise('core.edit.state', $asset));
+		}
+		else
+		{
+			// New item.
+			$catId = (int) $this->getState('service.catid');
+
+			if ($catId)
+			{
+				$value->params->set('access-change', $user->authorise('core.edit.state', 'com_service.category.' . $catId));
+				$value->catid = $catId;
+			}
+			else {
+				$value->params->set('access-change', $user->authorise('core.edit.state', 'com_service'));
+			}
+		}
+
+		return $value;
 	}
 
 	/**
@@ -68,6 +140,6 @@ class ServiceModelForm extends ServiceModelService
 	 */
 	public function getReturnPage()
 	{
-		return base64_encode($this->getState('return_page'));
+		return base64_encode(urlencode($this->getState('return_page')));
 	}
 }

@@ -53,7 +53,7 @@ class ServiceViewForm extends JViewLegacy
 		}
 		else
 		{
-			$authorised = $user->authorise('core.edit', 'com_service.service.' . $this->item->id);
+			$authorised = $this->item->params->get('access-edit');
 		}
 
 		if ($authorised !== true)
@@ -62,7 +62,7 @@ class ServiceViewForm extends JViewLegacy
 			return false;
 		}
 
-		if (!empty($this->item))
+		if (!empty($this->item) && isset($this->item->id))
 		{
 			$this->form->bind($this->item);
 		}
