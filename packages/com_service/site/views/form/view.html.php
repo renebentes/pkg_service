@@ -105,6 +105,7 @@ class ServiceViewForm extends JViewLegacy
 	{
 		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
+		$pathway	= $app->getPathway();
 		$title	= null;
 
 		// Because the application sets a default page title,
@@ -113,11 +114,11 @@ class ServiceViewForm extends JViewLegacy
 
 		if (empty($this->item->id))
 		{
-			$head = JText::_('COM_SERVICE_FORM_SUBMIT_SERVICE');
+			$head = JText::_('COM_SERVICE_FORM_ADD');
 		}
 		else
 		{
-			$head = JText::_('COM_SERVICE_FORM_EDIT_SERVICE');
+			$head = JText::_('COM_SERVICE_FORM_EDIT');
 		}
 
 		if ($menu)
@@ -141,6 +142,9 @@ class ServiceViewForm extends JViewLegacy
 		}
 
 		$this->document->setTitle($title);
+
+		$pathway = $app->getPathWay();
+		$pathway->addItem($title, '');
 
 		if ($this->params->get('menu-meta_description'))
 		{

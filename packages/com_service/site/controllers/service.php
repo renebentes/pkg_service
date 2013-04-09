@@ -59,7 +59,7 @@ class ServiceControllerService extends JControllerForm
 		if ($categoryId)
 		{
 			// If the category has been passed in the URL check it.
-			$allow = $user->authorise('core.create', $this->option . '.category.' . $categoryId);
+			$allow = $user->authorise('core.create', 'com_service.category.' . $categoryId);
 		}
 
 		if ($allow === null)
@@ -121,6 +121,8 @@ class ServiceControllerService extends JControllerForm
 			{
 				return true;
 			}
+		}
+
 		// Since there is no asset tracking, revert to the component permissions.
 		return parent::allowEdit($data, $key);
 	}

@@ -47,19 +47,6 @@ class ServiceViewService extends JViewLegacy
 		$this->state	= $this->get('State');
 		$this->user		= $user;
 
-		/*if ($item)
-		{
-			// Get Category Model data
-			$categoryModel = JModelLegacy::getInstance('Category', 'ServiceModel', array('ignore_request' => true));
-			$categoryModel->setState('category.id', $item->catid);
-			$categoryModel->setState('list.ordering', 'a.title');
-			$categoryModel->setState('list.direction', 'asc');
-
-			$items = $categoryModel->getItems();
-		}*/
-
-		// Check for errors.
-		// @TODO Maybe this could go into JComponentHelper::raiseErrors($this->get('Errors'))
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseWarning(500, implode("\n", $errors));
