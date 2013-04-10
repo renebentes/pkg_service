@@ -77,6 +77,13 @@ class ServiceTableService extends JTable
 	 */
 	public function check()
 	{
+		if(JFactory::getApplication()->getName() == 'site')
+		{
+			$desc = strip_tags($this->description);
+			$len = strlen($desc);
+			$this->title = substr($desc, 0, $len >= 100 ? 100 : $len);
+		}
+
 		// Check for valid title.
 		if (trim($this->title) == '')
 		{

@@ -9,16 +9,6 @@
 // No direct access.
 defined('_JEXEC') or die;
 
-// Define style
-jimport('joomla.filesystem.file');
-
-$template = JFactory::getApplication()->getTemplate(true)->template;
-if(!JFile::exists(JPATH_SITE . '/templates/' . $template . '/css/bootstrap.min.css'))
-{
-	$doc = JFactory::getDocument();
-	$doc->addStyleSheet(JURI::root() . 'media/com_service/css/bootstrap.min.css');
-}
-
 // Load the tooltip behavior.
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
@@ -47,36 +37,38 @@ $params = $this->state->get('params');
 	<div class="row-fluid">
 		<form action="<?php echo JRoute::_('index.php?option=com_service&s_id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 			<fieldset>
-				<legend><?php echo empty($this->item->id) ? JText::_('COM_SERVICE_FORM_ADD') : JText::_('COM_SERVICE_FORM_EDIT'); ?></legend>
-				<div class="control-group">
+				<h2><?php echo empty($this->item->id) ? JText::_('COM_SERVICE_FORM_ADD') : JText::_('COM_SERVICE_FORM_EDIT'); ?></h2>
+				<?php if ($this->user->authorise('core.edit.state', 'com_service.service')) : ?>
+				<div class="formelm control-group">
 					<?php echo $this->form->getLabel('title'); ?>
 					<?php echo $this->form->getInput('title'); ?>
 				</div>
-				<div class="control-group">
+				<div class="formelm control-group">
 					<?php echo $this->form->getLabel('alias'); ?>
 					<?php echo $this->form->getInput('alias'); ?>
 				</div>
-				<div class="control-group">
-					<?php echo $this->form->getLabel('catid'); ?>
-					<?php echo $this->form->getInput('catid'); ?>
-				</div>
-				<div class="control-group">
+				<?php endif; ?>
+				<div class="formelm control-group">
 					<?php echo $this->form->getLabel('requestor'); ?>
 					<?php echo $this->form->getInput('requestor'); ?>
 				</div>
-				<div class="control-group">
+				<div class="formelm control-group">
 					<?php echo $this->form->getLabel('place'); ?>
 					<?php echo $this->form->getInput('place'); ?>
 				</div>
+				<div class="formelm control-group">
+					<?php echo $this->form->getLabel('catid'); ?>
+					<?php echo $this->form->getInput('catid'); ?>
+				</div>
 
-				<?php if ($this->user->authorise('core.edit.state', 'com_service.service')): ?>
-				<div class="control-group">
+				<?php if ($this->user->authorise('core.edit.state', 'com_service.service')) : ?>
+				<div class="formelm control-group">
 					<?php echo $this->form->getLabel('published'); ?>
 					<?php echo $this->form->getInput('published'); ?>
 				</div>
 				<?php endif; ?>
 
-				<div class="control-group">
+				<div class="formelm control-group">
 					<?php echo $this->form->getLabel('description'); ?>
 					<?php echo $this->form->getInput('description'); ?>
 				</div>
@@ -88,8 +80,8 @@ $params = $this->state->get('params');
 				<?php endif;?>
 				<?php echo JHtml::_('form.token'); ?>
 
-				<div class="form-actions">
-					<button class="btn btn-primary" type="button" onclick="Joomla.submitbutton('service.save')"><?php echo JText::_('JSAVE') ?></button>
+				<div class="formelm-buttons form-actions">
+					<button class="btn btn-inverse" type="button" onclick="Joomla.submitbutton('service.save')"><?php echo JText::_('JSAVE') ?></button>
 					<button class="btn" type="button" onclick="Joomla.submitbutton('service.cancel')"><?php echo JText::_('JCANCEL') ?></button>
 				</div>
 			</fieldset>

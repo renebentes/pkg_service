@@ -2,8 +2,8 @@
 <form>
 	<fieldset name="default" label="COM_SERVICE_FORM_DEFAULT_LEGEND" addfieldpath="/administrator/components/com_categories/models/fields">
 		<field id="id" name="id" type="hidden" class="input-large" size="10" default="0" readonly="true" filter="integer" label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" />
-		<field id="title" name="title" type="text" class="input-large" size="30" required="true" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" />
-		<field id="alias" name="alias" type="text" class="input-large" size="45" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" />
+		<field id="title" name="title" type="text" class="input-large" size="40" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" />
+		<field id="alias" name="alias" type="text" class="input-large" size="30" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" />
 		<field id="catid" name="catid" type="categoryedit" extension="com_service" class="input-large" required="true" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" >
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
