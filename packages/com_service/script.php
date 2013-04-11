@@ -9,6 +9,11 @@
 // No direct access.
 defined('_JEXEC') or die;
 
+// Include dependencies
+jimport('joomla.filesystem.file');
+jimport('joomla.filesystem.folder');
+jimport('joomla.installer.installer');
+
 /**
  * Script file of Service component
  */
@@ -41,7 +46,12 @@ class Com_ServiceInstallerScript
      */
     function update($parent)
     {
+        $folder = JPATH_ROOT . DS . 'images/birthdays';
 
+        if(JFolder::exists($folder))
+        {
+            JFolder::delete($folder);
+        }
     }
 
     /**

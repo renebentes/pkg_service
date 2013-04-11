@@ -10,3 +10,86 @@
 .icon-48-service-categories {
 	background: url(../images/toolbar/category.png) no-repeat left;
 }
+
+/* icons */
+.icon-unchecked {
+	background: url(../images/icon/unchecked.png) no-repeat left;
+}
+
+.icon-checked {
+	background: url(../images/icon/checked.png) no-repeat left;
+}
+
+/* descrition list*/
+dl {
+	margin-bottom: 10px;
+}
+
+dt,
+dd {
+	line-height: 20px;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin-left: 10px;
+}
+
+.dl-horizontal {
+	*zoom: 1;
+}
+
+.dl-horizontal:before,
+.dl-horizontal:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+
+.dl-horizontal:after {
+	clear: both;
+}
+
+.dl-horizontal dt {
+	float: left;
+	width: 120px;
+	overflow: hidden;
+	clear: left;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.dl-horizontal dd {
+	margin-left: 130px;
+}
+
+/* unordered list*/
+ul.unstyled {
+	list-style: none;
+	padding: 0;
+  	margin: 0;
+}
+
+ul.unstyled [class^="icon-"],
+ul.unstyled [class*="icon-"] {
+	line-height: 20px;
+	padding: 10px;
+}
+
+ul.unstyled .divider-horizontal {
+	*width: 100%;
+  	height: 1px;
+  	margin: 9px 1px;
+  	*margin: -5px 0 5px;
+  	overflow: hidden;
+  	background-color: #e5e5e5;
+  	border-bottom: 1px solid #ffffff;
+}
+
+.hide {
+	display: none;
+}
