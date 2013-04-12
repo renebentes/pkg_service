@@ -182,12 +182,12 @@ class JHtmlIcon
 
 		if (empty($attribs) || isset($attribs))
 		{
-			$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
 			$attribs['rel']	= 'tooltip';
 			$attribs['data-placement']	= 'right';
 			$attribs['class']	= 'hasTooltip';
 		}
 
+		$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
 		$attribs['data-original-title']	= JText::_('JGLOBAL_PRINT');
 
 		return JHtml::_('link', JRoute::_($url), $text, $attribs);

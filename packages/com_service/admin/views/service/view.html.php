@@ -75,6 +75,8 @@ class ServiceViewService extends JView
 
 		JToolBarHelper::title($isNew ? JText::_('COM_SERVICE_SERVICE_ADD') : JText::_('COM_SERVICE_SERVICE_EDIT'), 'service.png');
 
+		JToolBarHelper::custom('service.print_popup', 'preview', 'preview', JText::_('JGLOBAL_PRINT'), false);
+
 		JToolBarHelper::preview('index.php?option=com_service&view=service&layout=preview&tmpl=component&id=' . $this->item->id, false, 'Visualização');
 
 		// If not checked out, can save the item.
