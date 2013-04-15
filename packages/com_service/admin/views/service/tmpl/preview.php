@@ -22,11 +22,11 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 		<div class="m">
 			<div class="toolbar-list" id="toolbar">
 				<ul>
-					<li class="button" id="toolbar-popup-preview">
-					<a class="modal" href="http://servidor.8bec.eb.mil.br/develop/administrator/index.php?option=com_service&view=service&layout=preview&tmpl=component&id=12&task=preview" rel="{handler: 'iframe', size: {x: 640, y: 480}, onClose: function() {}}">
-					<span class="icon-32-preview">
+					<li class="button" id="toolbar-popup-printer">
+					<a class="modal" href="#" onclick="window.print();return false;">
+					<span class="icon-48-printer">
 					</span>
-					Preview
+					<?php echo JText::_('COM_SERVICE_PRINT'); ?>
 					</a>
 					</li>
 				</ul>

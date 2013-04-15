@@ -11,6 +11,10 @@
 	background: url(../images/toolbar/category.png) no-repeat left;
 }
 
+.icon-48-printer {
+	background: url(../images/toolbar/printer.png) no-repeat left;
+}
+
 /* icons */
 .icon-unchecked {
 	background: url(../images/icon/unchecked.png) no-repeat left;
