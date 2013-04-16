@@ -19,7 +19,7 @@
 		<field name="language" type="contentlanguage" class="inputbox" label="JFIELD_LANGUAGE_LABEL" description="JFIELD_LANGUAGE_DESC">
 			<option value="*">JALL</option>
 		</field>
-		<field name="description" type="editor" class="inputbox" filter="JComponentHelper::filterText" buttons="true" hide="readmore,pagebreak" label="COM_SERVICE_FIELD_DESCRIPTION_LABEL" description="COM_SERVICE_FIELD_DESCRIPTION_DESC" />
+		<field name="description" type="textarea" cols="80" rows="10" class="inputbox" required="true" label="COM_SERVICE_FIELD_DESCRIPTION_LABEL" description="COM_SERVICE_FIELD_DESCRIPTION_DESC" />
 		<field name="dispatch" type="radio" filter="integer" default="0" label="COM_SERVICE_FIELD_DISPATCH_LABEL" description="COM_SERVICE_FIELD_DISPATCH_DESC">
 			<option value="0">COM_SERVICE_FIELD_DISPATCH_OPTION_ANALYZE</option>
 			<option value="1">COM_SERVICE_FIELD_DISPATCH_OPTION_WAIT</option>

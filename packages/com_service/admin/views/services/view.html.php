@@ -71,12 +71,12 @@ class ServiceViewServices extends JView
 
 		JToolBarHelper::title(JText::_('COM_SERVICE_MANAGER_SERVICES'), 'services.png');
 
-		if (count($user->getAuthorisedCategories('com_service', 'core.create')) > 0)
+		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_service', 'core.create')) > 0)
 		{
 			JToolBarHelper::addNew('service.add');
 		}
 
-		if (($canDo->get('core.edit')))
+		if ($canDo->get('core.edit') || $canDo->get('core.edit.own'))
 		{
 			JToolBarHelper::editList('service.edit');
 		}
@@ -102,10 +102,6 @@ class ServiceViewServices extends JView
 					JToolBarHelper::unarchiveList('services.publish');
 				}
 			}
-		}
-
-		if ($canDo->get('core.edit.state'))
-		{
 			JToolBarHelper::checkin('services.checkin');
 		}
 

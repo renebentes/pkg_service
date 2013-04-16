@@ -83,6 +83,12 @@ class ServiceViewForm extends JViewLegacy
 		$this->params = $params;
 		$this->user   = $user;
 
+		// Check for guest user
+		if ($user->get('guest'))
+		{
+			$this->form->setFieldAttribute('created_by', 'value',  $params->get('created_by'));
+		}
+
 		// Check param for category enabled
 		if ($params->get('enable_category') == 1) {
 			$this->form->setFieldAttribute('catid', 'default',  $params->get('catid', 1));

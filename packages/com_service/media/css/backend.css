@@ -102,3 +102,12 @@ ul.unstyled .divider-horizontal {
 div#content-box {
 	border-top: 1px !important;
 }
+
+/* form fields */
+textarea.invalid {
+	border: 1px solid red;
+}
+
+textarea.required {
+	background-color: #d5eeff;
+}

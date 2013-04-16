@@ -26,7 +26,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 					<a class="modal" href="#" onclick="window.print();return false;">
 					<span class="icon-48-printer">
 					</span>
-					<?php echo JText::_('COM_SERVICE_PRINT'); ?>
+					<?php echo JText::_('COM_SERVICE_TOOLBAR_PRINT'); ?>
 					</a>
 					</li>
 				</ul>

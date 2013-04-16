@@ -71,37 +71,45 @@ class ServiceViewService extends JView
 		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
 
 		// Since we don't track these assets at the item level, use the category id.
-		$canDo	= ServiceHelper::getActions($this->item->catid, 0);
+		$canDo	= ServiceHelper::getActions($this->state->get('filter.category_id'));
 
 		JToolBarHelper::title($isNew ? JText::_('COM_SERVICE_SERVICE_ADD') : JText::_('COM_SERVICE_SERVICE_EDIT'), 'service.png');
 
 		$bar = JToolbar::getInstance('toolbar');
-		$bar->appendButton('Popup', 'preview', JText::_('COM_SERVICE_PRINT_PREVIEW'), 'index.php?option=com_service&view=service&layout=preview&tmpl=component&id=' . $this->item->id, 800, 500);
+		$bar->appendButton('Popup', 'preview', JText::_('COM_SERVICE_TOOLBAR_PREVIEW'), 'index.php?option=com_service&view=service&layout=preview&tmpl=component&id=' . $this->item->id, 800, 500);
 
-		// If not checked out, can save the item.
-		if (!$checkedOut && ($canDo->get('core.edit') || count($user->getAuthorisedCategories('com_service', 'core.create')) > 0))
+		// For new records, check the create permission
+		if($isNew && count($user->getAuthorisedCategories('com_service', 'core.create')) > 0)
 		{
 			JToolBarHelper::apply('service.apply');
 			JToolBarHelper::save('service.save');
-
-			if ($canDo->get('core.create'))
-			{
-				JToolBarHelper::save2new('service.save2new');
-			}
-		}
-
-		// If an existing item, can save to a copy.
-		if (!$isNew && $canDo->get('core.create'))
-		{
-			JToolBarHelper::save2copy('service.save2copy');
-		}
-
-		if (empty($this->item->id))
-		{
+			JToolBarHelper::save2new('service.save2new');
 			JToolBarHelper::cancel('service.cancel');
 		}
 		else
 		{
+			// If not checked out, can save the item.
+			if (!$checkedOut)
+			{
+				// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+				if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $userId))
+				{
+					JToolBarHelper::apply('service.apply');
+					JToolBarHelper::save('service.save');
+
+					// We can save this record, but check the create permission to see if we can return to make a new one.
+					if ($canDo->get('core.create'))
+					{
+						JToolBarHelper::save2new('service.save2new');
+					}
+				}
+			}
+
+			// If checked out, we can still save
+			if ($canDo->get('core.create')) {
+				JToolBarHelper::save2copy('service.save2copy');
+			}
+
 			JToolBarHelper::cancel('service.cancel', 'JTOOLBAR_CLOSE');
 		}
 

@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form>
 	<fieldset name="default" label="COM_SERVICE_FORM_DEFAULT_LEGEND" addfieldpath="/administrator/components/com_categories/models/fields">
-		<field id="id" name="id" type="hidden" class="input-large" size="10" default="0" readonly="true" filter="integer" label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" />
-		<field id="title" name="title" type="text" class="input-large" size="40" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" />
-		<field id="alias" name="alias" type="text" class="input-large" size="30" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" />
-		<field id="catid" name="catid" type="categoryedit" extension="com_service" class="input-large" required="true" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" >
+		<field id="id" name="id" type="hidden" class="inputbox input-large" size="10" default="0" readonly="true" filter="integer" label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" />
+		<field id="title" name="title" type="text" class="inputbox input-large" size="40" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" />
+		<field id="alias" name="alias" type="text" class="inputbox input-large" size="30" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" />
+		<field id="catid" name="catid" type="categoryedit" extension="com_service" class="inputbox input-large" required="true" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" >
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
-		<field id="requestor" name="requestor" type="text" class="input-large" size="40" required="true" label="COM_SERVICE_FIELD_REQUESTOR_LABEL" description="COM_SERVICE_FIELD_REQUESTOR_DESC" />
-		<field id="place" name="place" type="text" class="input-large" size="40" required="true" label="COM_SERVICE_FIELD_PLACE_LABEL" description="COM_SERVICE_FIELD_PLACE_DESC" />
-		<field id="published" name="published" type="list" class="input-large" size="1" default="0" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" >
+		<field id="requestor" name="requestor" type="text" class="inputbox input-large" size="40" required="true" label="COM_SERVICE_FIELD_REQUESTOR_LABEL" description="COM_SERVICE_FIELD_REQUESTOR_DESC" />
+		<field id="place" name="place" type="text" class="inputbox input-large" size="40" required="true" label="COM_SERVICE_FIELD_PLACE_LABEL" description="COM_SERVICE_FIELD_PLACE_DESC" />
+		<field id="published" name="published" type="list" class="inputbox input-large" size="1" default="0" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" >
 			<option value="1">JPUBLISHED</option>
 			<option value="0">JUNPUBLISHED</option>
 			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field>
-		<field id="access" name="access" type="accesslevel" class="input-large" size="1" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" />
-		<field name="language" type="contentlanguage" class="input-large" label="JFIELD_LANGUAGE_LABEL" description="JFIELD_LANGUAGE_DESC">
+		<field id="access" name="access" type="accesslevel" class="inputbox input-large" size="1" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" />
+		<field name="language" type="contentlanguage" class="inputbox input-large" default="*" label="JFIELD_LANGUAGE_LABEL" description="JFIELD_LANGUAGE_DESC">
 			<option value="*">JALL</option>
 		</field>
-		<field name="description" type="editor" buttons="false" class="input-large" required="true"  filter="ContentHelper::filterText" asset_id="com_service" label="COM_SERVICE_FIELD_DESCRIPTION_LABEL" description="COM_SERVICE_FIELD_DESCRIPTION_DESC" />
-		<field id="created" name="created" type="calendar" filter="unset" />
-		<field id="created_by" name="created_by" type="text" filter="unset" />
-		<field id="created_by_alias" name="created_by_alias" type="text" class="input-large" size="20" label="JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL" description="JGLOBAL_FIELD_CREATED_BY_ALIAS_DESC" />
-		<field id="publish_up" name="publish_up" type="calendar" class="input-large" format="%Y-%m-%d %H:%M:%S" size="22" filter="user_utc" label="JGLOBAL_FIELD_PUBLISH_UP_LABEL" description="JGLOBAL_FIELD_PUBLISH_UP_DESC" />
-		<field id="publish_down" name="publish_down" type="calendar" class="input-large" format="%Y-%m-%d %H:%M:%S" size="22" filter="user_utc" label="JGLOBAL_FIELD_PUBLISH_DOWN_LABEL" description="JGLOBAL_FIELD_PUBLISH_DOWN_DESC" />
-		<field id="metakey" name="metakey" type="textarea" class="input-large" rows="5" cols="50" label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC" />
-		<field id="metadesc" name="metadesc" type="textarea" class="input-large" rows="5" cols="50" label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC" />
+		<field name="description" type="textarea" cols="100" rows="10" class="inputbox input-large" required="true" label="COM_SERVICE_FIELD_DESCRIPTION_LABEL" description="COM_SERVICE_FIELD_DESCRIPTION_DESC" />
+		<field id="created_by" name="created_by" type="hidden" />
 	</fieldset>
 </form>

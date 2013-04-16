@@ -28,7 +28,6 @@ $canDo = ServiceHelper::getActions();
 	Joomla.submitbutton = function(task)
 	{
 		if (task == 'service.cancel' || document.formvalidator.isValid(document.id('service-form'))) {
-			<?php echo $this->form->getField('description')->save(); ?>
 			Joomla.submitform(task, document.getElementById('service-form'));
 		}
 		else {
@@ -41,6 +40,12 @@ $canDo = ServiceHelper::getActions();
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_SERVICE_SERVICE_ADD') : JText::sprintf('COM_SERVICE_SERVICE_EDIT', $this->item->id); ?></legend>
 			<ul class="adminformlist">
+
+			<?php if ($this->item->id): ?>
+				<li><?php echo $this->form->getLabel('id'); ?>
+				<?php echo $this->form->getInput('id'); ?></li>
+			<?php endif; ?>
+
 				<li><?php echo $this->form->getLabel('title'); ?>
 				<?php echo $this->form->getInput('title'); ?></li>
 				<li><?php echo $this->form->getLabel('alias'); ?>
@@ -64,17 +69,9 @@ $canDo = ServiceHelper::getActions();
 				<?php echo $this->form->getInput('language'); ?></li>
 				<li><?php echo $this->form->getLabel('ordering'); ?>
 				<?php echo $this->form->getInput('ordering'); ?></li>
-
-				<?php if ($this->item->id): ?>
-					<li><?php echo $this->form->getLabel('id'); ?>
-					<?php echo $this->form->getInput('id'); ?></li>
-				<?php endif; ?>
+				<li><?php echo $this->form->getLabel('description'); ?>
+					<?php echo $this->form->getInput('description'); ?></li>
 			</ul>
-			<div>
-				<?php echo $this->form->getLabel('description'); ?>
-				<div class="clr"></div>
-				<?php echo $this->form->getInput('description'); ?>
-			</div>
 		</fieldset>
 	</div>
 	<div class="width-40 fltrt">

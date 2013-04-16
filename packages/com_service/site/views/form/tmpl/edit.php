@@ -20,7 +20,6 @@ $params = $this->state->get('params');
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
 		if (task == 'service.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('description')->save(); ?>
 			Joomla.submitform(task);
 		}
 		else {
@@ -73,11 +72,10 @@ $params = $this->state->get('params');
 					<?php echo $this->form->getInput('description'); ?>
 				</div>
 
+				<?php echo $this->form->getInput('created_by'); ?>
+
 				<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
 				<input type="hidden" name="task" value="" />
-				<?php if($this->params->get('enable_category', 0) == 1) :?>
-				<input type="hidden" name="jform[catid]" value="<?php echo $this->params->get('catid', 1);?>"/>
-				<?php endif;?>
 				<?php echo JHtml::_('form.token'); ?>
 
 				<div class="formelm-buttons form-actions">
