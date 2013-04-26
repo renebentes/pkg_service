@@ -99,7 +99,7 @@ class ServiceModelServices extends JModelList
 	}
 
 	/**
-	 * Method to get a store id based on model configuration state.$
+	 * Method to get a store id based on model configuration state.
 	 *
 	 * This is necessary because the model is used by the component and
 	 * different modules that might need different sets of data or different
@@ -207,7 +207,10 @@ class ServiceModelServices extends JModelList
 		{
 			if (stripos($search, 'id:') === 0)
 			{
-				$query->where('a.id = ' . (int) substr($search, 3));
+				if (is_numeric(substr($search, 3)))
+				{
+					$query->where('a.id = ' . (int) substr($search, 3));
+				}
 			}
 			else
 			{

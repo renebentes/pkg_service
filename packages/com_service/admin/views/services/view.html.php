@@ -64,12 +64,15 @@ class ServiceViewServices extends JView
 	protected function addToolbar()
 	{
 		require_once JPATH_COMPONENT . '/helpers/service.php';
+		require_once JPATH_COMPONENT . '/helpers/html/toolbar.php';
 
 		$state = $this->get('State');
 		$canDo = ServiceHelper::getActions($state->get('filter.category_id'));
 		$user  = JFactory::getUser();
 
 		JToolBarHelper::title(JText::_('COM_SERVICE_MANAGER_SERVICES'), 'services.png');
+
+		ServiceToolBarHelper::printList('services.printlist');
 
 		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_service', 'core.create')) > 0)
 		{
@@ -113,12 +116,6 @@ class ServiceViewServices extends JView
 		elseif ($canDo->get('core.edit.state'))
 		{
 			JToolBarHelper::trash('services.trash');
-			JToolBarHelper::divider();
-		}
-
-		if ($canDo->get('core.admin'))
-		{
-			JToolBarHelper::preferences('com_service');
 			JToolBarHelper::divider();
 		}
 

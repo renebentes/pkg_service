@@ -72,6 +72,11 @@ $params = $this->state->get('params');
 					<?php echo $this->form->getInput('description'); ?>
 				</div>
 
+				<div class="formelm control-group">
+					<?php echo $this->form->getLabel('language'); ?>
+					<?php echo $this->form->getInput('language'); ?>
+				</div>
+
 				<?php echo $this->form->getInput('created_by'); ?>
 
 				<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />

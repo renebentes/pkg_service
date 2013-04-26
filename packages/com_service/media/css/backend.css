@@ -11,10 +11,6 @@
 	background: url(../images/toolbar/category.png) no-repeat left;
 }
 
-.icon-48-printer {
-	background: url(../images/toolbar/printer.png) no-repeat left;
-}
-
 /* icons */
 .icon-unchecked {
 	background: url(../images/icon/unchecked.png) no-repeat left;
@@ -71,6 +67,18 @@ dd {
 	margin-left: 130px;
 }
 
+.dl-horizontal dd p {
+	border: 1px solid #cccccc;
+	width: 380px;
+	height: 100px;
+	margin-left: 0;
+	float: left;
+}
+
+.dl-horizontal dd ul {
+	float: right;
+}
+
 /* unordered list*/
 ul.unstyled {
 	list-style: none;
@@ -94,13 +102,15 @@ ul.unstyled .divider-horizontal {
   	border-bottom: 1px solid #ffffff;
 }
 
-.hide {
-	display: none;
+ul.signature {
+	width: 250px;
+	text-align: center;
+	margin-top: 20px;
 }
 
 /* content-box*/
 div#content-box {
-	border-top: 1px !important;
+	border-top: 1px solid #cccccc !important;
 }
 
 /* form fields */

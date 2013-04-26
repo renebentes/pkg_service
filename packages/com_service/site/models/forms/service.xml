@@ -16,7 +16,7 @@
 			<option value="-2">JTRASHED</option>
 		</field>
 		<field id="access" name="access" type="accesslevel" class="inputbox input-large" size="1" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" />
-		<field name="language" type="contentlanguage" class="inputbox input-large" default="*" label="JFIELD_LANGUAGE_LABEL" description="JFIELD_LANGUAGE_DESC">
+		<field name="language" type="contentlanguage" class="inputbox input-large" label="JFIELD_LANGUAGE_LABEL" description="JFIELD_LANGUAGE_DESC">
 			<option value="*">JALL</option>
 		</field>
 		<field name="description" type="textarea" cols="100" rows="10" class="inputbox input-large" required="true" label="COM_SERVICE_FIELD_DESCRIPTION_LABEL" description="COM_SERVICE_FIELD_DESCRIPTION_DESC" />

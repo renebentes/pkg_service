@@ -15,7 +15,7 @@ $doc->setTitle(JText::_('COM_SERVICE_SERVICE_TITLE'));
 $doc->addStyleSheet(JURI::root() . 'media/com_service/css/backend.css');
 
 // Include the component HTML helpers.
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+JHtml::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . '/helpers/html');
 
 // Load the tooltip behavior.
 JHtml::_('behavior.tooltip');

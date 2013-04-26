@@ -86,7 +86,7 @@ class ServiceViewForm extends JViewLegacy
 		// Check for guest user
 		if ($user->get('guest'))
 		{
-			$this->form->setFieldAttribute('created_by', 'value',  $params->get('created_by'));
+			$this->form->setValue('created_by', null, $params->get('created_by', 1));
 		}
 
 		// Check param for category enabled

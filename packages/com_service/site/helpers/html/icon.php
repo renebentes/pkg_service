@@ -9,7 +9,7 @@
 defined('_JEXEC') or die;
 
 /**
- * Content Component HTML Helper
+ * Service Component HTML Helper
  *
  * @static
  * @package     Service
