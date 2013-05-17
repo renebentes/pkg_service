@@ -63,6 +63,8 @@ class ServiceViewService extends JView
 	 */
 	protected function addToolbar()
 	{
+		require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/html/toolbar.php';
+
 		JRequest::setVar('hidemainmenu', true);
 
 		$user	= JFactory::getUser();
@@ -75,8 +77,7 @@ class ServiceViewService extends JView
 
 		JToolBarHelper::title($isNew ? JText::_('COM_SERVICE_SERVICE_ADD') : JText::_('COM_SERVICE_SERVICE_EDIT'), 'service.png');
 
-		$bar = JToolbar::getInstance('toolbar');
-		$bar->appendButton('Popup', 'preview', JText::_('COM_SERVICE_TOOLBAR_PREVIEW'), 'index.php?option=com_service&view=service&layout=preview&tmpl=component&id=' . $this->item->id, 800, 500);
+		ServiceToolBarHelper::printItem($this->item->id);
 
 		// For new records, check the create permission
 		if($isNew && count($user->getAuthorisedCategories('com_service', 'core.create')) > 0)

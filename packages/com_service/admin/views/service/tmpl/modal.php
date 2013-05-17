@@ -11,11 +11,16 @@ defined('_JEXEC') or die;
 
 // Get document
 $doc = JFactory::getDocument();
-$doc->setTitle(JText::_('COM_SERVICE_SERVICE_PREVIEW_TITLE'));
+$doc->setTitle(JText::_('COM_SERVICE_SERVICE_PRINT_TITLE'));
 $doc->addStyleSheet(JURI::root() . 'media/com_service/css/backend.css', 'text/css', 'all');
 
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+if (JRequest::getInt('print') == 1)
+{
+	echo '<script type="text/javascript">document.window.print();</script>';
+}
 ?>
 <div id="content-box">
 	<div id="toolbar-box">
@@ -33,7 +38,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 				<div class="clr"></div>
 			</div>
 			<div class="pagetitle icon-48-service">
-				<h2><?php echo JText::_('COM_SERVICE_SERVICE_PREVIEW_TITLE') ?></h2>
+				<h2><?php echo JText::_('COM_SERVICE_SERVICE_PRINT_TITLE') ?></h2>
 			</div>
 		</div>
 	</div>

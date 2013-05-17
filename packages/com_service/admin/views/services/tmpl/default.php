@@ -28,7 +28,28 @@ $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 $canOrder  = $user->authorise('core.edit.state', 'com_service.category');
 $saveOrder = $listOrder == 'a.ordering';
+
+$doc->addScript('http://code.jquery.com/jquery-1.9.1.min.js');
 ?>
+<script type="text/javascript">
+	if (jQuery && jQuery.noConflict)
+		jQuery.noConflict();
+
+	Joomla.submitbutton = function(task) {
+		if (task == 'services.printlist') {
+			arrID = jQuery("[id*=cb]:checked");
+			if (arrID.length != 0) {
+				cid = new Array();
+				jQuery.each(arrID, function() {
+					cid.push(this.value);
+				});
+				jQuery("[id=print]").attr('href', '<?php echo JURI::base() . "index.php?option=com_service&view=services&layout=modal&tmpl=component&print=1&filter_search=id:";?>' + cid);
+			}
+		}
+		else
+			submitform(task);
+	}
+</script>
 <form action="<?php echo JRoute::_('index.php?option=com_service&view=services'); ?>" method="post" name="adminForm" id="adminForm">
 	<fieldset id="filter-bar">
 		<div class="filter-search fltlft">

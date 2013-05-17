@@ -142,6 +142,7 @@ class ServiceModelServices extends JModelList
 			$this->getState(
 				'list.select',
 				'a.id, a.catid, a.title, a.alias, a.ordering, ' .
+				'a.description, a.requestor, a.place, a.dispatch, ' .
 				'a.published, a.access, a.language, a.checked_out, ' .
 				'a.checked_out_time, a.publish_up, a.publish_down'
 			)
@@ -205,9 +206,20 @@ class ServiceModelServices extends JModelList
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
-			if (stripos($search, 'id:') === 0)
+			if(is_array($search))
 			{
-				if (is_numeric(substr($search, 3)))
+				JArrayHelper::toInteger($search);
+				$cid = implode(',', $search);
+				$query->where('a.id IN (' . $search . ')');
+			}
+			elseif (stripos($search, 'id:') === 0)
+			{
+				$search = substr($search, 3);
+				if (explode(',', $search))
+				{
+					$query->where('a.id IN (' . $search . ')');
+				}
+				elseif (is_numeric($search))
 				{
 					$query->where('a.id = ' . (int) substr($search, 3));
 				}

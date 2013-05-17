@@ -57,43 +57,4 @@ class ServiceControllerServices extends JControllerAdmin
 
 		return $model;
 	}
-
-	/**
-	 * Method to print a list of items
-	 *
-	 * @return  void
-	 *
-	 * @since   2.5
-	 */
-	public function printList()
-	{
-		// Check for request forgeries
-		JSession::checkToken() or die(JText::_('JINVALID_TOKEN'));
-
-		// Get items to print from the request.
-		$cid = JRequest::getVar('cid', array(), '', 'array');
-		if (empty($cid))
-		{
-			JError::raiseWarning(500, JText::_($this->text_prefix . '_NO_ITEM_SELECTED'));
-		}
-		else
-		{
-			// Make sure the item ids are integers
-			JArrayHelper::toInteger($cid);
-			$cid = implode(',', $cid);
-
-			// Create a new query object.
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			// Select the required fields from the table.
-			$query->select('a.*');
-			$query->from($db->quoteName('#__service') . ' AS a');
-			$query->where('a.id IN (' . $cid . ')');
-			$db->setQuery($query);
-
-			$this->items = $db->loadObjectList();
-		}
-
-		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . '&layout=print', false));
-	}
 }
