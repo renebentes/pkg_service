@@ -23,16 +23,16 @@ Release Notes
 
 Legend: + Added, - Removed, ^ Updated, * Bugfix, # Secure fix, ! Relevant Message
 
-*1.5
-	* Correção de script de impressão de vários itens
-*1.4
-	^ Modo de impressão modificado para modal
-	+ Opção de impressão de vários itens selecionados no backend
-*1.3
-	+ Opção de impressão de item visualizado no backend
-*1.2
-	+ Opção de inclusão de Serviços no frontend
-*1.1
-	+ Campos para metadados
-*1.0
-	+ Primeira compilação com funcionalidades básicas (CRUD apenas no backend)
+1.5
+	*\*literal asterisks\* Correção de script de impressão de vários itens
+1.4
+	*^ Modo de impressão modificado para modal
+	*\*plus sign\* Opção de impressão de vários itens selecionados no backend
+1.3
+	*\*plus sign\* Opção de impressão de item visualizado no backend
+1.2
+	*\*plus sign\* Opção de inclusão de Serviços no frontend
+1.1
+	*\*plus sign\* Campos para metadados
+1.0
+	*\*plus sign\* Primeira compilação com funcionalidades básicas (CRUD apenas no backend)
