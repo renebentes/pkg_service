@@ -22,13 +22,13 @@ if (JRequest::getInt('print') == 1)
 	echo '<script type="text/javascript">document.window.print();</script>';
 }
 ?>
-<div id="content-box">
+<div id="content-box" class="content-box-printed">
 	<div id="toolbar-box">
 		<div class="m">
 			<div class="toolbar-list" id="toolbar">
 				<ul>
 					<li class="button" id="toolbar-popup-printer">
-					<a class="modal" href="#" onclick="window.print();return false;">
+					<a href="#" onclick="document.window.print();">
 					<span class="icon-32-print">
 					</span>
 					<?php echo JText::_('COM_SERVICE_TOOLBAR_PRINT'); ?>
@@ -43,7 +43,7 @@ if (JRequest::getInt('print') == 1)
 		</div>
 	</div>
 	<div id="element-box">
-		<div class="m">
+		<div class="n">
 			<div class="width-100">
 				<dl class="dl-horizontal">
 					<dt><?php echo JText::_('COM_SERVICE_FIELD_ID_LABEL'); ?></dt>
