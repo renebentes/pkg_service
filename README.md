@@ -17,8 +17,7 @@ Licensed under the terms of the [GNU/GPLv2](http://www.gnu.org/licenses/gpl-2.0.
 
 ## Release Notes
 
-Legend: + Added, - Removed, ^ Updated, * Bugfix, # Secure fix, ! Relevant Message
----------------------------------------------------------------------------------
+# Legend: + Added, - Removed, ^ Updated, * Bugfix, # Secure fix, ! Relevant Message
 
 1.5
 	* Correção de script de impressão de vários itens
