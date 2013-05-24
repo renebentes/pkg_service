@@ -34,13 +34,15 @@ class JButtonPrint extends JButton
 	 * @param   string  $task     The task associated with the button.
 	 * @param   integer $width    Width of popup
 	 * @param   integer $height   Height of popup
+	 * @param  	bool    $print    Enables printing to load page
 	 *
 	 * @return  string  HTML string for the button
 	 *
 	 * @since   2.5
 	 */
-	public function fetchButton($type = 'Print', $name = 'printlist', $text = '', $task = '', $width = 640, $height = 480)
+	public function fetchButton($type = 'Print', $name = 'printlist', $text = '', $task = '', $width = 640, $height = 480, $print = true)
 	{
+		$print = $print ? '&print=1' : '';
 		$doc = JFactory::getDocument();
 		$doc->addScript('http://code.jquery.com/jquery-1.9.1.min.js');
 
@@ -61,7 +63,7 @@ class JButtonPrint extends JButton
 		$script[] = "	}";
 		$script[] = "	Joomla.submitbutton = function(task){";
 		$script[] = "		if(task == 'services.printlist'){";
-		$script[] = "			var url = 'index.php?option=com_service&view=services&layout=modal&tmpl=component&print=1&filter_search=id:';";
+		$script[] = "			var url = 'index.php?option=com_service&view=services&layout=modal&tmpl=component" . $print . "&filter_search=id:';";
 		$script[] = "			arrID = jQuery('[id*=cb]:checked');";
 		$script[] = "			if(arrID.length != 0){";
 		$script[] = "				cid = new Array();";

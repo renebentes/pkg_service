@@ -36,8 +36,10 @@ Release Notes
 	! Relevant Message
 
 ######1.5
+	* Correção de problemas durante a instalação
 	* Correção de script de impressão de vários itens
 	+ Adição de script para remoção de arquivos obsoletos
+	^ Reorganização de arquivos e pastas
 ######1.4
 	^ Modo de impressão modificado para modal
 	+ Opção de impressão de vários itens selecionados no backend

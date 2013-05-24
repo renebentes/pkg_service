@@ -31,13 +31,16 @@ class Com_ServiceInstallerScript
      *
      * @var array
      */
-    private $_obsoltes = array(
+    private $_obsoletes = array(
         'files' => array(
-            'administrator/componentes/com_service/views/services/tmpl/print.php',
-            'administrator/componentes/com_service/views/service/tmpl/preview.php',
+            'administrator/components/com_service/views/services/tmpl/print.php',
+            'administrator/components/com_service/views/service/tmpl/preview.php',
+            'administrator/components/com_service/helpers/html/button/print.php',
+            'administrator/components/com_service/helpers/html/button/index.html',
             'components/com_service/language/pt-BR.com_service.ini'
             ),
         'folders' => array(
+            'administrator/components/com_service/helpers/html/button'
             )
         );
 
@@ -135,7 +138,7 @@ class Com_ServiceInstallerScript
      */
     function postflight($type, $parent)
     {
-        $this->_removeObsoletes($this->_obsoltes);
+        $this->_removeObsoletes($this->_obsoletes);
     }
 
     /**
@@ -353,7 +356,7 @@ class Com_ServiceInstallerScript
      *
      * @param array $obsoletes
      */
-    private function _removeObsoletes($obsoletes)
+    private function _removeObsoletes($obsoletes = array())
     {
         // Remove files
          if(!empty($obsoletes['files']))

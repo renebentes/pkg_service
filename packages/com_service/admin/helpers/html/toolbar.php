@@ -26,15 +26,15 @@ abstract class ServiceToolBarHelper extends JToolBarHelper
 	 * @param  string  $alt     Button text
 	 * @param  integer $width   Width of popup
 	 * @param  integer $height  Height of popup
-	 * @param  string  $onClose JavaScript for the onClose event.
+	 * @param  bool    $print 	Enables printing to load page
 	 *
 	 * @since  2.5
 	 */
-	public static function printItem($item = '', $alt = 'COM_SERVICE_TOOLBAR_PRINT', $width = 640, $height = 480, $print = 1, $onClose = '')
+	public static function printItem($item = '', $alt = 'COM_SERVICE_TOOLBAR_PRINT', $width = 640, $height = 480, $print = true)
 	{
-		$print = $print == 1 ? 'print=1' : '';
+		$print = $print ? '&print=1' : '';
 		$bar = JToolbar::getInstance('toolbar');
-		$bar->appendButton('Popup', 'print', $alt, 'index.php?option=com_service&view=service&layout=modal&tmpl=component&' . $print . '&id=' . $item, $width, $height);
+		$bar->appendButton('Popup', 'print', $alt, 'index.php?option=com_service&view=service&layout=modal&tmpl=component' . $print . '&id=' . $item, $width, $height);
 	}
 
 	/**
@@ -44,14 +44,14 @@ abstract class ServiceToolBarHelper extends JToolBarHelper
 	 * @param  string  $alt     Button text
 	 * @param  integer $width   Width of popup
 	 * @param  integer $height  Height of popup
-	 * @param  string  $onClose JavaScript for the onClose event.
+	 * @param  bool    $print 	Enables printing to load page
 	 *
 	 * @since  2.5
 	 */
-	public static function printList($task = '', $alt = 'COM_SERVICE_TOOLBAR_PRINT', $width = 640, $height = 480, $onClose = '')
+	public static function printList($task = '', $alt = 'COM_SERVICE_TOOLBAR_PRINT', $width = 640, $height = 480, $print = true)
 	{
-		require_once (JPATH_COMPONENT_ADMINISTRATOR . DS . 'helpers/html/button/print.php');
+		require_once (JPATH_COMPONENT_ADMINISTRATOR . DS . 'helpers/html/toolbar/button/print.php');
 		$bar = JToolbar::getInstance('toolbar');
-		$bar->appendButton('Print', 'print', $alt, $task, $width, $height, $onClose);
+		$bar->appendButton('Print', 'print', $alt, $task, $width, $height, $print);
 	}
 }
