@@ -18,13 +18,26 @@ Bugs/Requests
 
 You can [report a bug or request a feature here](http://github.com/renebentes/pkg_service/issues)
 
+TODO
+----
+* Visualização de único item no frontend
+* Visualização de itens por categoria no frontend
+* Visualização de categorias no frontend
+
 Release Notes
 -------------
 
-Legend: + Added, - Removed, ^ Updated, * Bugfix, # Secure fix, ! Relevant Message
+#####Legend:
+	+ Added
+	- Removed
+	^ Updated
+	* Bugfix
+	# Secure fix
+	! Relevant Message
 
 ######1.5
 	* Correção de script de impressão de vários itens
+	+ Adição de script para remoção de arquivos obsoletos
 ######1.4
 	^ Modo de impressão modificado para modal
 	+ Opção de impressão de vários itens selecionados no backend
