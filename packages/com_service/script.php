@@ -82,6 +82,39 @@ class Com_ServiceInstallerScript
      */
     function preflight($type, $parent)
     {
+        $this->_checkCompatible();
+
+        // Workaround for JInstaller bugs
+        if(in_array($type, array('install','discover_install')))
+        {
+            $this->_bugfixDBFunctionReturnedNoError();
+        }
+        else
+        {
+            $this->_bugfixCantBuildAdminMenus();
+        }
+
+        return true;
+    }
+
+    /**
+     * Method to run after an install/update/uninstall method
+     *
+     * @param string 		$type install, update or discover_update
+	 * @param JInstaller 	$parent
+     */
+    function postflight($type, $parent)
+    {
+        $this->_removeObsoletes($this->_obsoletes);
+    }
+
+    /**
+     * Method for checking compatibility installation environment
+     *
+     * @return bool True if the installation environment is compatible
+     */
+    private function _checkCompatible()
+    {
         // Only allow to install on Joomla! 2.5.0 or later with PHP 5.3.0 or later
         if(defined('PHP_VERSION'))
         {
@@ -117,28 +150,7 @@ class Com_ServiceInstallerScript
             return false;
         }
 
-        // Workaround for JInstaller bugs
-        if(in_array($type, array('install','discover_install')))
-        {
-            $this->_bugfixDBFunctionReturnedNoError();
-        }
-        else
-        {
-            $this->_bugfixCantBuildAdminMenus();
-        }
-
         return true;
-    }
-
-    /**
-     * Method to run after an install/update/uninstall method
-     *
-     * @param string 		$type install, update or discover_update
-	 * @param JInstaller 	$parent
-     */
-    function postflight($type, $parent)
-    {
-        $this->_removeObsoletes($this->_obsoletes);
     }
 
     /**

@@ -194,8 +194,8 @@ class ServiceModelCategory extends JModelList
 					$item->displayDate = ($item->publish_up == 0) ? $item->created : $item->publish_up;
 					break;
 
-				default:
 				case 'created':
+				default:
 					$item->displayDate = $item->created;
 					break;
 			}
