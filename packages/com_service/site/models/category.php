@@ -297,8 +297,8 @@ class ServiceModelCategory extends JModelList
 					$hitsFilter = intval($filter);
 					$query->where('a.hits >= '.$hitsFilter.' ');
 					break;
-				case 'title':
 				default: // default to 'title' if parameter is not valid
+				case 'title':
 					if(stripos($filter, 'id:') === 0)
 					{
 						$query->where('a.id = ' . (int) substr($filter, 3));

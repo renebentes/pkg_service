@@ -53,7 +53,7 @@ class ServicePagination extends JPagination
 				'select.genericlist',
 				$limits,
 				$this->prefix . 'limit',
-				'class="inputbox" size="1" onchange="Joomla.submitform();"',
+				'class="inputbox input-small" size="1" onchange="Joomla.submitform();"',
 				'value',
 				'text',
 				$selected
@@ -65,7 +65,7 @@ class ServicePagination extends JPagination
 				'select.genericlist',
 				$limits,
 				$this->prefix . 'limit',
-				'class="input-small" size="1" onchange="this.form.submit()"',
+				'class="inputbox input-small" size="1" onchange="this.form.submit()"',
 				'value',
 				'text',
 				$selected
